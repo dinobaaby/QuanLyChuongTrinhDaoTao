@@ -87,3 +87,4 @@ D:\HK5\Web\QuanLyChuongTrinhDaoTao\Server\ChuongTrinhDaoTao.Service.WebApi\obj\D
 D:\HK5\Web\QuanLyChuongTrinhDaoTao\Server\ChuongTrinhDaoTao.Service.WebApi\obj\Debug\net7.0\ChuongTrinhDaoTao.Service.WebApi.pdb
 D:\HK5\Web\QuanLyChuongTrinhDaoTao\Server\ChuongTrinhDaoTao.Service.WebApi\obj\Debug\net7.0\ChuongTrinhDaoTao.Service.WebApi.genruntimeconfig.cache
 D:\HK5\Web\QuanLyChuongTrinhDaoTao\Server\ChuongTrinhDaoTao.Service.WebApi\obj\Debug\net7.0\ref\ChuongTrinhDaoTao.Service.WebApi.dll
+D:\HK5\Web\QuanLyChuongTrinhDaoTao\Server\ChuongTrinhDaoTao.Service.WebApi\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

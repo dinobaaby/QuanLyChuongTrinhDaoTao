@@ -16,7 +16,7 @@ namespace ChuongTrinhDaoTao.Service.WebApi.Models
         [Required]
         [StringLength(50, MinimumLength = 5, ErrorMessage ="Tên khoa phải có độ dài từ {2} đến {1}")]
         [DisplayName("Tên khoa")]
-        public string FucultyName { get; set; }
+        public string FacultyName { get; set; }
 
 
         [MaxLength(100)]
@@ -24,7 +24,8 @@ namespace ChuongTrinhDaoTao.Service.WebApi.Models
         [DisplayName("Mô tả")]
         public string FacultyDescription { get; set; }
 
-        
+        [NotMapped]
+        public int MajorCount { get; set; }
 
         public virtual ICollection<Major>? Majors { get; set; }
     }

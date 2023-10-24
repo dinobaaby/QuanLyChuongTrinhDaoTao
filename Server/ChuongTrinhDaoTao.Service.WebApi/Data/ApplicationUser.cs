@@ -21,6 +21,7 @@ namespace ChuongTrinhDaoTao.Service.WebApi.Data
         [DisplayName("Tên đầy đủ")]
         public string FullName { get; set; }
 
-        public virtual Major? Major { get; set; }
+        public string CohortId { get; set; }
+        public virtual Cohort? Cohort { get; set; }
     }
 }

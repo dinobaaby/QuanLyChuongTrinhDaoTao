@@ -36,6 +36,10 @@ namespace ChuongTrinhDaoTao.Service.WebApi.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("CohortId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -87,6 +91,8 @@ namespace ChuongTrinhDaoTao.Service.WebApi.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CohortId");
+
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -96,6 +102,39 @@ namespace ChuongTrinhDaoTao.Service.WebApi.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("Users", (string)null);
+                });
+
+            modelBuilder.Entity("ChuongTrinhDaoTao.Service.WebApi.Models.Cohort", b =>
+                {
+                    b.Property<string>("CohortId")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("CohortDescription")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("CohortName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("EndDay")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("MajorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<DateTime>("StartDay")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("CohortId");
+
+                    b.HasIndex("MajorId");
+
+                    b.ToTable("Cohort", (string)null);
                 });
 
             modelBuilder.Entity("ChuongTrinhDaoTao.Service.WebApi.Models.Faculty", b =>
@@ -109,10 +148,11 @@ namespace ChuongTrinhDaoTao.Service.WebApi.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("FucultyName")
+                    b.Property<string>("FacultyName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("FucultyName");
 
                     b.HasKey("FacultyId");
 
@@ -142,16 +182,9 @@ namespace ChuongTrinhDaoTao.Service.WebApi.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("UserID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(150)");
-
                     b.HasKey("MajorId");
 
                     b.HasIndex("FacultyId");
-
-                    b.HasIndex("UserID")
-                        .IsUnique();
 
                     b.ToTable("Major", (string)null);
                 });
@@ -289,6 +322,28 @@ namespace ChuongTrinhDaoTao.Service.WebApi.Migrations
                     b.ToTable("UserToken", (string)null);
                 });
 
+            modelBuilder.Entity("ChuongTrinhDaoTao.Service.WebApi.Data.ApplicationUser", b =>
+                {
+                    b.HasOne("ChuongTrinhDaoTao.Service.WebApi.Models.Cohort", "Cohort")
+                        .WithMany("User")
+                        .HasForeignKey("CohortId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cohort");
+                });
+
+            modelBuilder.Entity("ChuongTrinhDaoTao.Service.WebApi.Models.Cohort", b =>
+                {
+                    b.HasOne("ChuongTrinhDaoTao.Service.WebApi.Models.Major", "Major")
+                        .WithMany("Cohorts")
+                        .HasForeignKey("MajorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Major");
+                });
+
             modelBuilder.Entity("ChuongTrinhDaoTao.Service.WebApi.Models.Major", b =>
                 {
                     b.HasOne("ChuongTrinhDaoTao.Service.WebApi.Models.Faculty", "Faculty")
@@ -297,15 +352,7 @@ namespace ChuongTrinhDaoTao.Service.WebApi.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ChuongTrinhDaoTao.Service.WebApi.Data.ApplicationUser", "User")
-                        .WithOne("Major")
-                        .HasForeignKey("ChuongTrinhDaoTao.Service.WebApi.Models.Major", "UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Faculty");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -359,14 +406,19 @@ namespace ChuongTrinhDaoTao.Service.WebApi.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ChuongTrinhDaoTao.Service.WebApi.Data.ApplicationUser", b =>
+            modelBuilder.Entity("ChuongTrinhDaoTao.Service.WebApi.Models.Cohort", b =>
                 {
-                    b.Navigation("Major");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ChuongTrinhDaoTao.Service.WebApi.Models.Faculty", b =>
                 {
                     b.Navigation("Majors");
+                });
+
+            modelBuilder.Entity("ChuongTrinhDaoTao.Service.WebApi.Models.Major", b =>
+                {
+                    b.Navigation("Cohorts");
                 });
 #pragma warning restore 612, 618
         }

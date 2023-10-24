@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using ChuongTrinhDaoTao.Service.WebApi.Models;
+using ChuongTrinhDaoTao.Service.WebApi.Models.Dto;
 
 namespace ChuongTrinhDaoTao.Service.WebApi.Helpers
 {
@@ -8,7 +10,10 @@ namespace ChuongTrinhDaoTao.Service.WebApi.Helpers
         {
             var mappingConfig = new MapperConfiguration(configs =>
             {
-                configs.CreateMap<string, string>();
+                configs.CreateMap<FacultyDto, Faculty>();
+                configs.CreateMap<Faculty, FacultyDto>();
+                configs.CreateMap<MajorDto, Major>();
+                configs.CreateMap<Major, MajorDto>();   
             });
             return mappingConfig;
         }

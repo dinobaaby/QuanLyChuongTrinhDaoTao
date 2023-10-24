@@ -29,9 +29,10 @@ namespace ChuongTrinhDaoTao.Service.WebApi.Models
 
         public string FacultyId { get; set; }
 
-        public string UserID { get; set; }
+       
 
-        public virtual ApplicationUser? User { get; set; }
+        
         public virtual Faculty? Faculty { get; set; }
+        public virtual ICollection<Cohort>? Cohorts { get; set; }
     }
 }

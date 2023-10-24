@@ -73,6 +73,7 @@ namespace ChuongTrinhDaoTao.Service.WebApi.Controllers
                 }
                 var userEmail = users.Select(u => new
                 {
+                    Id = u.Id,
                     Email = u.Email
                 });
                 _response.Result = userEmail;

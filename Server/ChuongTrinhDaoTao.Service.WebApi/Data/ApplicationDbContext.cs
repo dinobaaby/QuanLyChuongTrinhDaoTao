@@ -11,18 +11,23 @@ namespace ChuongTrinhDaoTao.Service.WebApi.Data
 
         public DbSet<Faculty> Faculties { get; set; }
         public DbSet<Major> Major { get; set; }
-
+        public DbSet<Cohort> Cohorts { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
            
 
             base.OnModelCreating(builder);
-
+            builder.Entity<Cohort>(entity =>
+            {
+                entity.ToTable(nameof(Cohort));
+                entity.HasOne(e => e.Major).WithMany(e => e.Cohorts).HasForeignKey(e => e.MajorId);
+            });
             builder.Entity<Faculty>(entity =>
             {
                 entity.ToTable(nameof(Faculty));
                 entity.HasKey(e => e.FacultyId);
+                entity.Property(e => e.FacultyName).HasColumnName("FucultyName");
 
             });
             builder.Entity<Major>(entity =>
@@ -30,10 +35,14 @@ namespace ChuongTrinhDaoTao.Service.WebApi.Data
                 entity.ToTable(nameof(Major));
                 entity.HasKey(e => e.MajorId);
                 entity.HasOne(e => e.Faculty).WithMany(e => e.Majors).HasForeignKey(e => e.FacultyId);
-                entity.HasOne(e => e.User).WithOne(e => e.Major).HasForeignKey<Major>(e => e.UserID);
+                
             });
             // Đổi tên bảng khi tao thông qua migration của identity security
             builder.Entity<ApplicationUser>().ToTable("Users");
+            builder.Entity<ApplicationUser>(entity =>
+            {
+                entity.HasOne(e => e.Cohort).WithMany(e => e.User).HasForeignKey(e => e.CohortId);
+            });
             builder.Entity<ApplicationUser>()
                    .Property(u => u.Id)
                    .HasMaxLength(150);
