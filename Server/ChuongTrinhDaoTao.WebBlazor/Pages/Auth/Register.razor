@@ -1,0 +1,53 @@
+﻿@page "/register"
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+@using System.Net.Http.Json
+@using System.Net.Http
+@using System.Threading.Tasks
+@using ChuongTrinhDaoTao.WebBlazor.Models.Dto
+<PageTitle>Weather forecast</PageTitle>
+<div>
+    <h3>Register</h3>
+    <form @onsubmit="register">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" @bind="registrationRequest.Email">
+        </div>
+        <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input type="text" class="form-control" id="fullName" @bind="registrationRequest.FullName">
+        </div>
+        <div class="form-group">
+            <label for="phoneNumber">Phone Number</label>
+            <input type="text" class="form-control" id="phoneNumber" @bind="registrationRequest.PhoneNumber">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" @bind="registrationRequest.Password">
+        </div>
+        <div class="form-group">
+            <label for="cohortId">Cohort ID</label>
+            <input type="text" class="form-control" id="cohortId" @bind="registrationRequest.CohortId">
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+</div>
+@code {
+    private RegisterationRequestDto registrationRequest = new RegisterationRequestDto();
+    private ResponseDto _response = new ResponseDto();
+
+    private async Task register()
+    {
+        var response = await HttpClient.PostAsJsonAsync("https://localhost:7277/api/Auth/Register", registrationRequest);
+
+        if (response.IsSuccessStatusCode)
+        {
+            _response = await response.Content.ReadFromJsonAsync<ResponseDto>();
+            // Handle a successful response
+        }
+        else
+        {
+            // Handle an error response
+        }
+    }
+}

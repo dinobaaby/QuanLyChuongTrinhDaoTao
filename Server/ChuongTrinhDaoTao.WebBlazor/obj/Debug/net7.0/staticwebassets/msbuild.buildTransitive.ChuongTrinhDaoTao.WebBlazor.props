@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\ChuongTrinhDaoTao.WebBlazor.props" />
+</Project>
