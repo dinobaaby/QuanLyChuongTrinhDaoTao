@@ -31,7 +31,8 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Helpers
                 configs.CreateMap<Cohort_Major, Cohort_MajorDto>();
                 configs.CreateMap<Cohort_MajorDto, Cohort_Major>();
 
-               
+                configs.CreateMap<UserMajor, UserMajorDto>();
+                configs.CreateMap<UserMajorDto, UserMajor>();   
             });
             return mappingConfig;
         }
