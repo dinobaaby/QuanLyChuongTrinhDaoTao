@@ -28,6 +28,10 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Models
         [Required]
         public DateTime EndDay { get; set; }
 
+        [NotMapped]
+        [AllowNull]
+        public List<int> MajorIds { get; set; }
+
         public virtual ICollection<Cohort_Major>? CohortMajors { get; set; }
         
         public virtual ICollection<UserMajor>? UserMajor { get; set; }

@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using static ChuongTrinhDaoTaoDaiHoc.WebMVC.Utilyty.SD;
+using static ChuongTrinhDaoTao.WebMVC.Utilyty.SD;
 
 namespace ChuongTrinhDaoTao.WebMVC.Services
 {

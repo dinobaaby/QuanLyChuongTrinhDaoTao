@@ -1,5 +1,5 @@
 ﻿
-using static ChuongTrinhDaoTaoDaiHoc.WebMVC.Utilyty.SD;
+using static ChuongTrinhDaoTao.WebMVC.Utilyty.SD;
 
 namespace ChuongTrinhDaoTao.WebMVC.Models
 {

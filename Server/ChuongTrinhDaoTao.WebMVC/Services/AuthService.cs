@@ -1,6 +1,7 @@
 ﻿using ChuongTrinhDaoTao.WebMVC.Models;
 using ChuongTrinhDaoTao.WebMVC.Services.IService;
-using ChuongTrinhDaoTaoDaiHoc.WebMVC.Utilyty;
+using ChuongTrinhDaoTao.WebMVC.Utilyty;
+using NuGet.Protocol.Plugins;
 
 namespace ChuongTrinhDaoTao.WebMVC.Services
 {
@@ -12,24 +13,38 @@ namespace ChuongTrinhDaoTao.WebMVC.Services
             _baseService = baseService;
         }
 
-        public async Task<ResponseDto> AssignRoleAsync(RegisterationRequestDto assignationRequestDto)
+        
+
+       
+
+        public async Task<ResponseDto?> AssignRoleAsync(RegisterationRequestDto assignRoleRequestDto)
         {
             return await _baseService.SendAsync(new RequestDto()
             {
                 ApiType = SD.ApiType.POST,
-                Data = assignationRequestDto,
-               
+                Data = assignRoleRequestDto,
+                Url = SD.ApiBase + "/api/Auth/AssignRole"
             });
         }
 
-        public Task<ResponseDto> LoginAsync(LoginRequestDto loginRequest)
+        public async Task<ResponseDto?> LoginAsync(LoginRequestDto loginRequestDto)
         {
-            throw new NotImplementedException();
+            return await _baseService.SendAsync(new RequestDto()
+            {
+                ApiType = SD.ApiType.POST,
+                Data = loginRequestDto,
+                Url = SD.ApiBase + "/api/Auth/login"
+            }, withBearer: false);
         }
 
-        public Task<ResponseDto> RegisterAsync(RegisterationRequestDto registerationRequestDto)
+        public async Task<ResponseDto?> RegisterAsync(RegisterationRequestDto registerationRequestDto)
         {
-            throw new NotImplementedException();
+            return await _baseService.SendAsync(new RequestDto()
+            {
+                ApiType = SD.ApiType.POST,
+                Data = registerationRequestDto,
+                Url = SD.ApiBase + "/api/Auth/Re"
+            }, withBearer: false);
         }
     }
 }

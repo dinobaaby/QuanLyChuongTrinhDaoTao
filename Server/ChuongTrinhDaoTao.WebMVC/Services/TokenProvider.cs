@@ -1,5 +1,5 @@
 ﻿using ChuongTrinhDaoTao.WebMVC.Services.IService;
-using ChuongTrinhDaoTaoDaiHoc.WebMVC.Utilyty;
+using ChuongTrinhDaoTao.WebMVC.Utilyty;
 
 namespace ChuongTrinhDaoTao.WebMVC.Services
 {

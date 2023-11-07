@@ -8,11 +8,13 @@ using ChuongTrinhDaoTao.Service.APICTDT.Services;
 using ChuongTrinhDaoTao.Service.APICTDT.Services.IService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -44,10 +46,17 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFramework
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 
-
-
-
 builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddRateLimiter(o => o.AddFixedWindowLimiter(policyName: "ratepolicy", options =>
+{
+    options.QueueLimit = 0;
+    options.PermitLimit = 1;
+    options.Window = TimeSpan.FromSeconds(1);
+    options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+}).RejectionStatusCode = 401);
+
+
 builder.Services.AddSwaggerGen(options =>
 {
     options.AddSecurityDefinition(name: "Bearer", securityScheme: new OpenApiSecurityScheme
@@ -72,6 +81,18 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 });
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+                      });
+});
+
+
 builder.AddAppUthetication();
 builder.Services.AddAuthorization();
 
@@ -86,7 +107,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors(MyAllowSpecificOrigins);
+app.UseRateLimiter();
 app.UseAuthorization();
 
 app.MapControllers();

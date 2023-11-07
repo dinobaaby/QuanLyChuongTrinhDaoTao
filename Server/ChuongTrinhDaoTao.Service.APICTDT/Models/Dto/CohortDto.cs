@@ -1,4 +1,5 @@
-﻿using ChuongTrinhDaoTao.Service.APICTDT.Data;
+﻿
+
 namespace ChuongTrinhDaoTao.Service.APICTDT.Models.Dto
 {
     public class CohortDto
@@ -17,7 +18,8 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Models.Dto
 
     
         public DateTime EndDay { get; set; }
-
+        
+        public List<int> MajorIds { get; set; }
         public virtual ICollection<Cohort_MajorDto>? CohortMajors { get; set; }
 
         public virtual ICollection<UserMajorDto>? UserMajor { get; set; }

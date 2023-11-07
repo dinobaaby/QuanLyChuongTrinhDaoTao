@@ -33,6 +33,8 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Controllers
                     return BadRequest(_response);
                 }
                 var result = await _context.UserMajor.ToListAsync();
+                _response.Result = _mapper.Map<IEnumerable<UserMajorDto>>(result);
+                return Ok(_response);
             }catch (Exception ex)
             {
                 _response.Message = ex.Message;

@@ -1,17 +1,19 @@
 using ChuongTrinhDaoTao.WebMVC.Services;
 using ChuongTrinhDaoTao.WebMVC.Services.IService;
-using ChuongTrinhDaoTaoDaiHoc.WebMVC.Utilyty;
+using ChuongTrinhDaoTao.WebMVC.Utilyty;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-// add content response web api
 builder.Services.AddControllersWithViews();
+
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient();
-builder.Services.AddHttpClient<IAuthService, IAuthService>();
+
+
+builder.Services.AddHttpClient<IAuthService, AuthService>();
+builder.Services.AddHttpClient<IFacultyService, FacultyService>();
 SD.ApiBase = builder.Configuration["ServiceUrls:WebApi"];
 
 
@@ -20,15 +22,23 @@ SD.ApiBase = builder.Configuration["ServiceUrls:WebApi"];
 
 
 
-builder.Services.AddScoped<IAuthService, IAuthService>();
+
+builder.Services.AddScoped<ITokenProvider, TokenProvider>();
 builder.Services.AddScoped<IBaseService, BaseService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IFacultyService, FacultyService>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
 {
-    options.ExpireTimeSpan = TimeSpan.FromHours(1);
-    options.LoginPath = "/";
-    options.AccessDeniedPath = "/";
+    options.ExpireTimeSpan = TimeSpan.FromHours(10);
+    options.LoginPath = "/Auth/Login";
+    options.AccessDeniedPath = "/Auth/AccessDenied";
 });
+
 var app = builder.Build();
+
+
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -43,6 +53,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
@@ -50,3 +61,4 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+

@@ -45,7 +45,7 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Controllers
             return BadRequest(_response);
         }
 
-        [HttpPost]
+        [HttpPost()]
         public async Task<IActionResult> Create(CohortDto cohortDto)
         {
             try
@@ -108,6 +108,40 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Controllers
             return BadRequest(_response);
         }
 
+        [HttpPost("CohortWithMajor")]
+        public async Task<IActionResult> CohortWithMajor(CohortDto dto)
+        {
+            try
+            {
+                Cohort result = _mapper.Map<Cohort>(dto);
+                await _context.Cohorts.AddAsync(result);
+                await _context.SaveChangesAsync();
+                foreach (int majorId in result.MajorIds)
+                {
+                    var Cm = new Cohort_Major { MajorId = majorId, CohortId = result.CohortId};
+                    await _context.Cohort_Majors.AddAsync(Cm);
+                }
+                await _context.SaveChangesAsync();
+
+                var rResult = _mapper.Map<CohortDto>(result);
+                _response.Result = new CohortDto
+                {
+                    CohortId = rResult.CohortId,
+                    CohortName = rResult.CohortName,
+                    CohortDescription = rResult.CohortDescription,
+                    StartDay = rResult.StartDay,
+                    EndDay = rResult.EndDay,
+                    MajorIds = rResult.MajorIds,
+                };
+                return Ok(_response);
+            }catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.Message;
+            }
+            return BadRequest(_response);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -163,5 +197,7 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Controllers
             }
             return BadRequest(_response);
         }
+
+        
     }
 }

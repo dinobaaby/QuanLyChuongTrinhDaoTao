@@ -2,6 +2,7 @@
 using ChuongTrinhDaoTao.Service.APICTDT.Services.IService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace ChuongTrinhDaoTao.Service.APICTDT.Controllers
 {
@@ -19,6 +20,7 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Controllers
 
 
         [HttpPost("Register")]
+        [EnableRateLimiting("ratepolicy")]
         public async Task<IActionResult> Register([FromBody] RegisterationRequestDto requestDto)
         {
             var errorMessage = await _authService.Register(requestDto);
