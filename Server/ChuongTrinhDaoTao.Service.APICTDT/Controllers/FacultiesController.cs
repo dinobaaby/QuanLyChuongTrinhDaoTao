@@ -42,7 +42,14 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Controllers
 
                 if (objList != null)
                 {
-                    _response.Result = _mapper.Map<IEnumerable<FacultyDto>>(objList);
+                    var result = _mapper.Map<IEnumerable<FacultyDto>>(objList);
+                    _response.Result = result.Select(a => new 
+                    {
+                        FacultyId = a.FacultyId,
+                        FacultyDescription = a.FacultyDescription,
+                        FacultyName = a.FacultyName,
+                        MajorCount = a.MajorCount,
+                    });
                     return Ok(_response);
                 }
                 _response.Message = "Bảng khoa không có giá trị nào cả!";

@@ -57,6 +57,7 @@ builder.Services.AddRateLimiter(o => o.AddFixedWindowLimiter(policyName: "ratepo
 }).RejectionStatusCode = 401);
 
 
+
 builder.Services.AddSwaggerGen(options =>
 {
     options.AddSecurityDefinition(name: "Bearer", securityScheme: new OpenApiSecurityScheme
@@ -83,12 +84,14 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 
+
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy =>
                       {
-                          policy.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+                          policy.WithOrigins("http://192.168.201.64:8088", "http://localhost:3001/").AllowAnyMethod().AllowAnyHeader();
                       });
 });
 
