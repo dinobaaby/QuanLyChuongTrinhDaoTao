@@ -27,10 +27,10 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Controllers
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
+        
         {
             if(_context.Faculties != null)
             {
-               
                 IEnumerable<Faculty> objList = await _context.Faculties.Include(m => m.Majors).ToListAsync();
                 objList = objList.Select(a => new Faculty
                 {
@@ -120,7 +120,7 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Controllers
             return BadRequest(_response);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {
             try
@@ -134,6 +134,7 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Controllers
                 }
                 _context.Faculties.Remove(faculty);
                 await _context.SaveChangesAsync();
+                _response.Result = new FacultyDto();
                 _response.Message = "Delete successful";
                 return Ok(_response);
 

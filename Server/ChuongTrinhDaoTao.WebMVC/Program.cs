@@ -14,19 +14,21 @@ builder.Services.AddHttpClient();
 
 builder.Services.AddHttpClient<IAuthService, AuthService>();
 builder.Services.AddHttpClient<IFacultyService, FacultyService>();
+builder.Services.AddHttpClient<IMajorService, MajorService>();
+builder.Services.AddHttpClient<ICohortService, CohortService>();
+builder.Services.AddHttpClient<IBlockOfKnowledgeService, BlockOfKnowledgeService>();
 SD.ApiBase = builder.Configuration["ServiceUrls:WebApi"];
 
 
 
-
-
-
-
-
+builder.Services.AddScoped<IBlockOfKnowledgeService, BlockOfKnowledgeService>();
+builder.Services.AddScoped<ICohortService, CohortService>();
+builder.Services.AddScoped<IMajorService, MajorService>();
 builder.Services.AddScoped<ITokenProvider, TokenProvider>();
 builder.Services.AddScoped<IBaseService, BaseService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IFacultyService, FacultyService>();
+
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
 {
     options.ExpireTimeSpan = TimeSpan.FromHours(10);

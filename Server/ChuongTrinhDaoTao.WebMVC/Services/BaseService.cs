@@ -23,9 +23,11 @@ namespace ChuongTrinhDaoTao.WebMVC.Services
         {
             try
             {
-                HttpClient client = _httpClientFactory.CreateClient("WebApi");
+                HttpClient client = _httpClientFactory.CreateClient("APICTDT");
                 HttpRequestMessage message = new();
                 message.Headers.Add("Accept", "application/json");
+
+                //Token
                 if (withBearer)
                 {
                     var token = _tokenProvider.GetToken();
@@ -64,6 +66,8 @@ namespace ChuongTrinhDaoTao.WebMVC.Services
                         return new() { IsSuccess = false, Message = "Unauthorized" };
                     case HttpStatusCode.InternalServerError:
                         return new() { IsSuccess = false, Message = "Internal Server Error" };
+                    case HttpStatusCode.BadRequest:
+                        return new() { IsSuccess = false, Message = "Bad resquest" };
                     default:
                         var apiContent = await apiResponse.Content.ReadAsStringAsync();
                         var apiResponseDto = JsonConvert.DeserializeObject<ResponseDto>(apiContent);

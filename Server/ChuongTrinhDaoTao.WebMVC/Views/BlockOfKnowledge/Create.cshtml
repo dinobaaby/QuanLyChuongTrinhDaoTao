@@ -1,0 +1,31 @@
+﻿@model ChuongTrinhDaoTao.WebMVC.Model.BlockOfKnowledgeDto
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Create</h1>
+
+<form class="col-md-6 grid-margin stretch-card" method="post" asp-action="Create">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">BlockOfKnowledge</h4>
+
+            <div class="form-group">
+                <label asp-for="BlockOfKnowledgeName" class="control-label"></label>
+                <input type="text" asp-for="BlockOfKnowledgeName" class="form-control form-control-lg" placeholder="BlockOfKnowledgeName" aria-label="BlockOfKnowledgeName">
+                <span asp-validation-for="BlockOfKnowledgeName" class="text-danger"></span>
+            </div>
+          
+
+            <button type="submit" class="btn btn-primary btn-icon-text">
+                <i class="mdi mdi-file-check btn-icon-prepend"></i> Submit
+            </button>
+            <a asp-action="Index" asp-controller="BlockOfKnowledge" type="button" class="btn btn-danger btn-icon-text">
+                <i class="mdi mdi-upload btn-icon-prepend"></i> Cancer
+            </a>
+
+        </div>
+
+    </div>
+</form>

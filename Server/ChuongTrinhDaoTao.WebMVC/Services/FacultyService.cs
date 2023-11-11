@@ -22,10 +22,47 @@ namespace ChuongTrinhDaoTao.WebMVC.Services
 
             });
         }
-
-        public Task<ResponseDto> GetFacultyAsync(string facultyname)
+        public async Task<ResponseDto> CreateFacultyAsync(FacultyDto facultyDto)
         {
-            throw new NotImplementedException();
+            return await _baseService.SendAsync(new RequestDto()
+            {
+                ApiType = SD.ApiType.POST,
+                Data = facultyDto,
+                Url = SD.ApiBase + "/api/Faculties"
+
+            });
         }
+
+        public async Task<ResponseDto> DeleteFacultyAsync(string id)
+        {
+            return await _baseService.SendAsync(new RequestDto()
+            {
+                ApiType = SD.ApiType.DELETE,
+                Url = SD.ApiBase + "/api/Faculties/" + id
+
+            }, false);
+        }
+
+
+        public async Task<ResponseDto> GetFacultyByIdAsync(string id)
+        {
+            return await _baseService.SendAsync(new RequestDto()
+            {
+                ApiType = SD.ApiType.GET,
+                Url = SD.ApiBase + "/api/Faculties/" + id
+            }, false);
+        }
+
+        public async Task<ResponseDto> UpdateFacultyAsync(FacultyDto facultyDto)
+        {
+            return await _baseService.SendAsync(new RequestDto()
+            {
+                ApiType = SD.ApiType.PUT,
+                Data = facultyDto,
+                Url = SD.ApiBase + "/api/Faculties"
+
+            });
+        }
+        
     }
 }

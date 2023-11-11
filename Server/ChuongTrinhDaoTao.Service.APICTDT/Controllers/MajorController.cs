@@ -42,6 +42,7 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Controllers
                     MajorName = x.MajorName,
                     MajorFounding = x.MajorFounding,
                     MajorDescription = x.MajorDescription,
+                    FacultyId = x.FacultyId,
                     FacultyName = x.Faculty.FacultyName,
 
                 });
@@ -72,6 +73,7 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Controllers
                     MajorName = x.MajorName,
                     MajorFounding = x.MajorFounding,
                     MajorDescription = x.MajorDescription,
+                    FacultyId = x.FacultyId,
                     FacultyName = x.Faculty.FacultyName,
 
                 });

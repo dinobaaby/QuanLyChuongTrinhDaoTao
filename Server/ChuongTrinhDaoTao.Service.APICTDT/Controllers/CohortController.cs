@@ -2,7 +2,9 @@
 using ChuongTrinhDaoTao.Service.APICTDT.Data;
 using ChuongTrinhDaoTao.Service.APICTDT.Models;
 using ChuongTrinhDaoTao.Service.APICTDT.Models.Dto;
+using Microsoft.AspNetCore.DataProtection.XmlEncryption;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -35,7 +37,16 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Controllers
                     return NotFound(_response);
                 }
                
-                _response.Result = _mapper.Map<IEnumerable<CohortDto>>(cohorts);
+                IEnumerable<CohortDto> result = _mapper.Map<IEnumerable<CohortDto>>(cohorts);
+                result = result.Select(c => new CohortDto
+                {
+                    CohortId = c.CohortId,
+                    CohortName = c.CohortName,
+                    CohortDescription = c.CohortDescription,
+                    StartDay = c.StartDay,
+                    EndDay = c.EndDay
+                });
+                _response.Result = result;
                 return Ok(_response);
             }catch (Exception ex)
             {
@@ -45,7 +56,7 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Controllers
             return BadRequest(_response);
         }
 
-        [HttpPost()]
+        [HttpPost]
         public async Task<IActionResult> Create(CohortDto cohortDto)
         {
             try
@@ -68,10 +79,30 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Controllers
         {
             try
             {
-                var cohort = _mapper.Map<Cohort>(cohortDto);
-                _context.Cohorts.Update(cohort);
+                Cohort result = _mapper.Map<Cohort>(cohortDto);
+                var CohortMajorIds = await _context.Cohort_Majors.Where(x => x.CohortId == cohortDto.CohortId).ToListAsync();
+                _context.RemoveRange(CohortMajorIds);
+                _context.Cohorts.Update(result);
                 await _context.SaveChangesAsync();
-                _response.Result = cohort;
+                foreach (int majorId in result.MajorIds)
+                {
+                    var Cm = new Cohort_Major { MajorId = majorId, CohortId = result.CohortId };
+                    await _context.Cohort_Majors.AddAsync(Cm);
+                   
+                    
+                }
+                await _context.SaveChangesAsync();
+
+                var rResult = _mapper.Map<CohortDto>(result);
+                _response.Result = new CohortDto
+                {
+                    CohortId = rResult.CohortId,
+                    CohortName = rResult.CohortName,
+                    CohortDescription = rResult.CohortDescription,
+                    StartDay = rResult.StartDay,
+                    EndDay = rResult.EndDay,
+                    MajorIds = rResult.MajorIds,
+                };
                 return Ok(_response);
             }
             catch (Exception ex)
