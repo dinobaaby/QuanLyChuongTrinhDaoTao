@@ -41,7 +41,7 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Controllers
                             MajorId = e.MajorId,
                             CohortId = e.CohortId,
                             BlockOfKnowledgeName = e.BlockOfKnowledge.BlockOfKnowledgeName,
-                            CouseName = e.Course.CourseName,
+                            CourseName = e.Course.CourseName,
                             MajorName = e.Cohort_Major.Major.MajorName,
                             CohortName = e.Cohort_Major.Cohort.CohortName
 
@@ -82,21 +82,36 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Controllers
                         //_response.Result = values;
                         _response.Result = new
                         {
-                            MajorName = value.FirstOrDefault(e => e.MajorId == majorId)?.Cohort_Major?.Major?.MajorName,
-                            CohortName = value.FirstOrDefault(e => e.CohortId == cohortId)?.Cohort_Major?.Cohort?.CohortName,
+                            
+                            CohortMajor = new  {
+                                CohortId = result.First().CohortId,
+                                MajorId = result.First().MajorId,
+                                MajorName = value.FirstOrDefault(e => e.MajorId == majorId)?.Cohort_Major?.Major?.MajorName,
+                                CohortName = value.FirstOrDefault(e => e.CohortId == cohortId)?.Cohort_Major?.Cohort?.CohortName,
+                            },
                             Courses = value.Select(x => new
                             {
-                                BlockOfKnowledgeName = x.BlockOfKnowledge.BlockOfKnowledgeName,
-                                CourseName = x.Course.CourseName
+                                BlockOfKnowledgeName = new
+                                {
+                                    BlockOfKnowledgeId = x.BlockOfKnowledgeId,
+                                    BlockOfKnowledgeName = x.BlockOfKnowledge.BlockOfKnowledgeName
+                                },
+                                CourseName = new
+                                {
+                                    CourseId = x.CourseId,
+                                    CourseCode = x.Course?.CourseCode,
+                                    CourseName = x.Course?.CourseName
+                                  
+                                }
                             })
-                        .GroupBy(x => x.BlockOfKnowledgeName)
-                        .Select(group => new
-                        {
-                            BlockOfKnowledgeName = group.Key,
-                            Courses = group.Select(x => x.CourseName).ToList()
-                        })
-                        .ToList()
-
+                            .GroupBy(x => x.BlockOfKnowledgeName)
+                            .Select(group => new
+                            {
+                                BlockOfKnowledgeName = group.Key,
+                                Courses = group.Select(x => x.CourseName).ToList()
+                            })
+                            .ToList()
+                             
                         };
                         return Ok(_response);
                     }

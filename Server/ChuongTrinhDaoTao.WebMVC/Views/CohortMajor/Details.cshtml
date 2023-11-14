@@ -1,0 +1,45 @@
+﻿@model Cohort_MajorDto
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Details</h1>
+
+
+
+<div class="col-md-6 grid-margin stretch-card" method="post">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Cohort_Major</h4>
+            <div class="form-group">
+                <label asp-for="CohortId" class="control-label"></label>
+                <input type="text" asp-for="CohortId" class="form-control form-control-lg" readonly placeholder="CohortId" aria-label="CohortId">
+                <span asp-validation-for="CohortId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CohortName" class="control-label"></label>
+                <input type="text" asp-for="CohortName" class="form-control form-control-lg" placeholder="CohortName" aria-label="CohortName">
+                <span asp-validation-for="CohortName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MajorId" class="control-label"></label>
+                <input type="text" asp-for="MajorId" class="form-control form-control-lg" readonly placeholder="MajorId" aria-label="MajorId">
+                <span asp-validation-for="MajorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MajorName" class="control-label"></label>
+                <input type="text" asp-for="MajorName" class="form-control form-control-lg" placeholder="MajorName" aria-label="MajorName">
+                <span asp-validation-for="MajorName" class="text-danger"></span>
+            </div>
+
+
+            
+            <a asp-action="Index" asp-controller="CohortMajor" type="button" class="btn btn-danger btn-icon-text">
+                <i class="mdi mdi-upload btn-icon-prepend"></i> Cancer
+            </a>
+
+        </div>
+
+    </div>
+</div>

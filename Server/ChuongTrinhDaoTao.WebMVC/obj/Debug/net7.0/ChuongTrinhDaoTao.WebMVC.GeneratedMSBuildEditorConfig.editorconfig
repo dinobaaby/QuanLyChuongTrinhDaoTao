@@ -20,6 +20,18 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/HK5/Web/QuanLyChuongTrinhDaoTao/Server/ChuongTrinhDaoTao.WebMVC/Views/BKCourse/ChuongTrinhDaoTao.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQktDb3Vyc2VcQ2h1b25nVHJpbmhEYW9UYW8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK5/Web/QuanLyChuongTrinhDaoTao/Server/ChuongTrinhDaoTao.WebMVC/Views/BKCourse/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQktDb3Vyc2VcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK5/Web/QuanLyChuongTrinhDaoTao/Server/ChuongTrinhDaoTao.WebMVC/Views/BKCourse/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQktDb3Vyc2VcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/HK5/Web/QuanLyChuongTrinhDaoTao/Server/ChuongTrinhDaoTao.WebMVC/Views/BlockOfKnowledge/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmxvY2tPZktub3dsZWRnZVxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -40,6 +52,22 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmxvY2tPZktub3dsZWRnZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/HK5/Web/QuanLyChuongTrinhDaoTao/Server/ChuongTrinhDaoTao.WebMVC/Views/CohortMajor/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29ob3J0TWFqb3JcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK5/Web/QuanLyChuongTrinhDaoTao/Server/ChuongTrinhDaoTao.WebMVC/Views/CohortMajor/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29ob3J0TWFqb3JcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK5/Web/QuanLyChuongTrinhDaoTao/Server/ChuongTrinhDaoTao.WebMVC/Views/CohortMajor/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29ob3J0TWFqb3JcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK5/Web/QuanLyChuongTrinhDaoTao/Server/ChuongTrinhDaoTao.WebMVC/Views/CohortMajor/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29ob3J0TWFqb3JcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/HK5/Web/QuanLyChuongTrinhDaoTao/Server/ChuongTrinhDaoTao.WebMVC/Views/Cohort/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29ob3J0XENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -58,6 +86,26 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/HK5/Web/QuanLyChuongTrinhDaoTao/Server/ChuongTrinhDaoTao.WebMVC/Views/Cohort/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29ob3J0XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK5/Web/QuanLyChuongTrinhDaoTao/Server/ChuongTrinhDaoTao.WebMVC/Views/Course/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ291cnNlXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK5/Web/QuanLyChuongTrinhDaoTao/Server/ChuongTrinhDaoTao.WebMVC/Views/Course/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ291cnNlXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK5/Web/QuanLyChuongTrinhDaoTao/Server/ChuongTrinhDaoTao.WebMVC/Views/Course/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ291cnNlXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK5/Web/QuanLyChuongTrinhDaoTao/Server/ChuongTrinhDaoTao.WebMVC/Views/Course/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ291cnNlXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK5/Web/QuanLyChuongTrinhDaoTao/Server/ChuongTrinhDaoTao.WebMVC/Views/Course/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ291cnNlXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/HK5/Web/QuanLyChuongTrinhDaoTao/Server/ChuongTrinhDaoTao.WebMVC/Views/Faculty/Create.cshtml]

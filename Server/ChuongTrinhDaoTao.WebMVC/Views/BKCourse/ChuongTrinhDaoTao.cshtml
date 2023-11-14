@@ -1,0 +1,150 @@
+﻿@model ChuongTrinhDaoTao.WebMVC.BussinessModel.ChuongTrinhDaoTaoBM
+@{
+    ViewData["Title"] = "ChuongTrinhDaoTao";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card corona-gradient-card">
+        <div class="card-body py-0 px-0 px-sm-3">
+            <div class="row align-items-center">
+                <div class="col-4 col-sm-3 col-xl-2">
+                    <img src="~/images/dashboard/Group126@2x.png" class="gradient-corona-img img-fluid" alt="">
+                </div>
+                <div class="col-5 col-sm-7 col-xl-8 p-0">
+                    <h4 class="mb-1 mb-sm-0">Chi tiet chuong trinh dao tao</h4>
+                    <p class="mb-0 font-weight-normal d-none d-sm-block">Khoa @Model.CohortMajor.CohortName nganh @Model.CohortMajor.MajorName</p>
+                </div>
+                <div class="col-3 col-sm-2 col-xl-2 ps-0 text-center">
+                    <span>
+                        <a asp-action="Index" asp-controller="CohortMajor" target="_blank" class="btn btn-outline-light btn-rounded get-started-btn">Xem nghanh khac</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if(Model.Courses != null)
+{
+    <div class="row">
+        <div class="col-8">
+            @foreach (var item in Model.Courses)
+            {
+
+                <div class="card-body">
+                    <blockquote class="blockquote blockquote-primary">
+                        <p>@item.BlockOfKnowledgeName.BlockOfKnowledgeName</p>
+                        <footer class="blockquote-footer">ID :  <cite title="Source Title">@item.BlockOfKnowledgeName.BlockOfKnowledgeId</cite></footer>
+                    </blockquote>
+                </div>
+
+                <table id="bootstrap-data-table" class="table">
+                    <thead>
+                        <tr>
+                            <th class="col-3">CohortName</th>
+                            <th class="col-3 ">MajorName</th>
+                            <th class="col-3 ">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+                        @foreach (var coursea in item.Courses)
+                        {
+                            <tr>
+
+                                <td>@coursea.CourseCode</td>
+                                <td>@coursea.CourseName</td>
+                                <td>
+                                    <a class="btn btn-info btn-icon-text">Edit</a>
+                                    <a class="btn btn-danger btn-icon-text">Delete</a>
+
+                                </td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+            }
+
+
+        </div>
+        <div class="col-4">
+            <form class=" grid-margin stretch-card" method="post" asp-action="Create" asp-controller="BKCourse">
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            <input name="CohortId" value="@Model.CohortMajor.CohortId" hidden />
+                        </div>
+                        <div class="form-group">
+                            <input name="MajorId" value="@Model.CohortMajor.MajorId" hidden />
+                        </div>
+                        <div class="form-group">
+                            <label>BKCId</label>
+                            <select name="BlockOfKnowledgeId" class="form-control" style="width:100%">
+                                @foreach (var item in ViewBag.Blocks)
+                                {
+                                    <option value="@item.BlockOfKnowledgeId">@item.BlockOfKnowledgeName</option>
+                                }
+
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>BKCId</label>
+                            <select name="CourseId" class="form-control" id="searchSelect" style="width:100%">
+                                @foreach (var item in ViewBag.Courses)
+                                {
+                                    <option value="@item.CourseId">@item.CourseName</option>
+                                }
+
+                            </select>
+
+                        </div>
+
+
+                        <button type="submit" class="btn btn-primary btn-icon-text">
+                            <i class="mdi mdi-file-check btn-icon-prepend"></i> Submit
+                        </button>
+
+                        <a asp-action="Index" asp-controller="CohortMajor" type="button" class="btn btn-danger btn-icon-text">
+                            <i class="mdi mdi-upload btn-icon-prepend"></i> Cancer
+                        </a>
+
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+}
+else
+{
+    <form class=" grid-margin stretch-card" method="post"  asp-controller="BKCourse">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="form-group">
+                    <input name="CohortId" />
+                </div>
+                <div class="form-group">
+                    <input name="MajorId"  />
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-icon-text">
+                    <i class="mdi mdi-file-check btn-icon-prepend"></i> Submit
+                </button>
+
+                <a asp-action="Index" asp-controller="CohortMajor" type="button" class="btn btn-danger btn-icon-text">
+                    <i class="mdi mdi-upload btn-icon-prepend"></i> Cancer
+                </a>
+
+            </div>
+
+        </div>
+    </form>
+}
+

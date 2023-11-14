@@ -49,9 +49,22 @@ namespace ChuongTrinhDaoTao.WebMVC.Services
             });
         }
 
-        public Task<ResponseDto?> GetMajorInCohortAsync(int cohortId)
+        public async Task<ResponseDto?> GetCohortMajorByIdAsync(int majorId, int cohortId)
         {
-            throw new NotImplementedException();
+            return await _baseService.SendAsync(new RequestDto
+            {
+                ApiType = SD.ApiType.GET,
+                Url = SD.ApiBase + "/api/CohortMajors/" + majorId + "/" + cohortId
+            });
+        }
+
+        public async Task<ResponseDto?> GetMajorInCohortAsync(int cohortId)
+        {
+            return await _baseService.SendAsync(new RequestDto
+            {
+                ApiType = SD.ApiType.GET,
+                Url = SD.ApiBase + "/api/CohortMajors/GetMajorInCohort/" + cohortId
+            });
         }
 
         public Task<ResponseDto?> UpdateAsync(Cohort_MajorDto cohort_major)

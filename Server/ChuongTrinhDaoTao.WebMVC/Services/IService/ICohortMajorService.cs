@@ -10,5 +10,6 @@ namespace ChuongTrinhDaoTao.WebMVC.Services.IService
         Task<ResponseDto?> GetMajorInCohortAsync(int cohortId);
         Task<ResponseDto?> GetCohortInMajorAsync(int majorId);
         Task<ResponseDto?> DeleteAsync(int majorId, int cohortId);
+        Task<ResponseDto?> GetCohortMajorByIdAsync(int majorId, int cohortId);
     }
 }

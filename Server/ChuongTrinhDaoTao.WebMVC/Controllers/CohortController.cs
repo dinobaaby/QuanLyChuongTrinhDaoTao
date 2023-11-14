@@ -103,14 +103,14 @@ namespace ChuongTrinhDaoTao.WebMVC.Controllers
         {
             try
             {
-                ResponseDto response1 = await _majorService.GetAllMajorAsync();
-                List<MajorDto> majorDtos = JsonConvert.DeserializeObject<List<MajorDto>>(Convert.ToString(response1.Result));
+                ResponseDto? response1 = await _majorService.GetAllMajorAsync();
+                List<MajorDto>? majorDtos = JsonConvert.DeserializeObject<List<MajorDto>>(Convert.ToString(response1.Result));
                 ViewBag.Majors = majorDtos;
                 ResponseDto response = await _cohortService.GetByIdAsync(id);
                 if (response != null && response.IsSuccess)
                 {
                    
-                    CohortDto cohort = JsonConvert.DeserializeObject<CohortDto>(Convert.ToString(response.Result));
+                    CohortDto? cohort = JsonConvert.DeserializeObject<CohortDto>(Convert.ToString(response.Result));
                     return View(cohort);
                 }
                 return NotFound();
@@ -126,11 +126,11 @@ namespace ChuongTrinhDaoTao.WebMVC.Controllers
         {
             try
             {
-                ResponseDto response1 = await _majorService.GetAllMajorAsync();
-                ResponseDto response = await _cohortService.UpdateAsync(cohort);
+                ResponseDto? response1 = await _majorService.GetAllMajorAsync();
+                ResponseDto? response = await _cohortService.UpdateAsync(cohort);
                 if (response != null && response.IsSuccess)
                 {
-                    List<MajorDto> majorDtos = JsonConvert.DeserializeObject<List<MajorDto>>(Convert.ToString(response1.Result));
+                    List<MajorDto>? majorDtos = JsonConvert.DeserializeObject<List<MajorDto>>(Convert.ToString(response1.Result));
                     ViewBag.Majors = majorDtos;
                     TempData["success"] = "Updete cohort successful";
                     return RedirectToAction("Index");
@@ -149,10 +149,10 @@ namespace ChuongTrinhDaoTao.WebMVC.Controllers
         {
             try
             {
-                ResponseDto response = await _cohortService.GetByIdAsync(id);
+                ResponseDto? response = await _cohortService.GetByIdAsync(id);
                 if (response != null && response.IsSuccess)
                 {
-                    CohortDto cohort = JsonConvert.DeserializeObject<CohortDto>(Convert.ToString(response.Result));
+                    CohortDto? cohort = JsonConvert.DeserializeObject<CohortDto>(Convert.ToString(response.Result));
                     return View(cohort);
                 }
                 return NotFound();
@@ -167,7 +167,7 @@ namespace ChuongTrinhDaoTao.WebMVC.Controllers
         {
             try
             {
-                ResponseDto response = await _cohortService.DeleteAsync(cohort.CohortId);
+                ResponseDto? response = await _cohortService.DeleteAsync(cohort.CohortId);
                 if (response != null && response.IsSuccess)
                 {
                     TempData["success"] = "Delete cohort Successful";

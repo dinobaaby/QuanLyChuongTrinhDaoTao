@@ -183,6 +183,38 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Controllers
         }
 
 
+        [HttpGet("{majorId}/{cohortId}")]
+        public async Task<IActionResult> Get(int majorId, int cohortId)
+        {
+            try
+            {
+                var result = await _context.Cohort_Majors.Include(c => c.Cohort).Include(c => c.Major).FirstOrDefaultAsync(cm => cm.CohortId == cohortId && cm.MajorId == majorId);
+                if(result == null)
+                {
+                    _response.Message = "Data is null";
+                    _response.IsSuccess = false;
+                    return BadRequest(_response);
+                }
+                Cohort_MajorDto res = _mapper.Map<Cohort_MajorDto>(result);
+                Object obj = new
+                {
+                    CohortId = res.CohortId,
+                    MajorId = res.MajorId,
+                    CohortName = res.Cohort.CohortName,
+                    MajorName = res.Major.MajorName
+                };
+                _response.Result = obj;
+                return Ok(_response);
+            }catch (Exception ex)
+            {
+                _response.Message = ex.Message;
+                _response.IsSuccess = false;
+            }
+            return NotFound(_response);
+        
+        }
+
+
         [HttpDelete("{majorId}/{cohortId}")]
         public async Task<IActionResult> Delete(int majorId, int cohortId)
         {

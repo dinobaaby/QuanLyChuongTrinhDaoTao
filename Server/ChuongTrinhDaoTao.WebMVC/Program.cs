@@ -17,10 +17,15 @@ builder.Services.AddHttpClient<IFacultyService, FacultyService>();
 builder.Services.AddHttpClient<IMajorService, MajorService>();
 builder.Services.AddHttpClient<ICohortService, CohortService>();
 builder.Services.AddHttpClient<IBlockOfKnowledgeService, BlockOfKnowledgeService>();
+builder.Services.AddHttpClient<ICohortMajorService, CohortMajorService>();
+builder.Services.AddHttpClient<ICourseService, CourseService>();
+builder.Services.AddHttpClient<IBlockOfKnowledgeCourseService, BlockOfKnowledgeCourseService>();
 SD.ApiBase = builder.Configuration["ServiceUrls:WebApi"];
 
 
-
+builder.Services.AddScoped<IBlockOfKnowledgeCourseService, BlockOfKnowledgeCourseService>();
+builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddScoped<ICohortMajorService, CohortMajorService>();
 builder.Services.AddScoped<IBlockOfKnowledgeService, BlockOfKnowledgeService>();
 builder.Services.AddScoped<ICohortService, CohortService>();
 builder.Services.AddScoped<IMajorService, MajorService>();
