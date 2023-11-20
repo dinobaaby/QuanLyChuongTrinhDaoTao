@@ -1,0 +1,71 @@
+﻿@model DiaBetes
+@{
+    ViewData["Title"] = "CheckResult";
+}
+
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title text-center">Diabetes</h3>
+            <hr>
+
+            <form method="post">
+
+                <div class="form-group">
+                    <label asp-for="Pregnancies" class="control-label"></label>
+                    <input asp-for="Pregnancies" class="form-control" />
+                    <span asp-validation-for="Pregnancies" class="text-danger"></span>
+                </div>
+
+                    <div class="form-group has-success">
+                        <label asp-for="Glucose" class="control-label  mb-1"></label>
+                        <input asp-for="Glucose" class="form-control" />
+                        <span asp-validation-for="Glucose" class="text-danger"></span>
+
+                    </div>
+                    <div class="form-group has-success">
+                        <label asp-for="BloodPressure" class="control-label  mb-1"></label>
+                        <input asp-for="BloodPressure" class="form-control" />
+                        <span asp-validation-for="BloodPressure" class="text-danger"></span>
+
+                    </div>
+                    <div class="form-group has-success">
+                        <label asp-for="SkinThickness" class="control-label  mb-1"></label>
+                        <input asp-for="SkinThickness" class="form-control" />
+                        <span asp-validation-for="SkinThickness" class="text-danger"></span>
+
+                    </div>
+                    <div class="form-group has-success">
+                        <label asp-for="Insulin" class="control-label  mb-1"></label>
+                        <input asp-for="Insulin" class="form-control" />
+                        <span asp-validation-for="Insulin" class="text-danger"></span>
+
+                    </div>
+                    <div class="form-group has-success">
+                        <label asp-for="BMI" class="control-label  mb-1"></label>
+                        <input asp-for="BMI" class="form-control" />
+                        <span asp-validation-for="BMI" class="text-danger"></span>
+
+                    </div>
+
+                    <div class="form-group has-success">
+                        <label asp-for="DiabetesPedigreeFunction" class="control-label  mb-1"></label>
+                        <input asp-for="DiabetesPedigreeFunction" class="form-control" />
+                        <span asp-validation-for="DiabetesPedigreeFunction" class="text-danger"></span>
+
+                    </div>
+
+                <div class="form-group">
+                    <label asp-for="Age" class="control-label"></label>
+                    <input asp-for="Age" class="form-control" />
+                    <span asp-validation-for="Age" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-success">Kiem tra</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,73 @@
+﻿@model IEnumerable<IOTBTL.Models.Weather>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table" id="dataweather">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoAm)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NhietDo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AnhSang)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KhiGas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrangThai)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DoAm)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NhietDo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DoOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AnhSang)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KhiGas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrangThai)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+

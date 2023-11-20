@@ -15,14 +15,16 @@ namespace ChuongTrinhDaoTao.WebMVC.Controllers
         private readonly ICohortService _cohortService;
         private readonly ICourseService _courseService;
         private readonly IBlockOfKnowledgeService _blockOfKnowledgeService;
+        private readonly ICohortMajorService _cohortMajorService;
 
-        public BKCourseController(IBlockOfKnowledgeCourseService blockOfKnowledgeCourse, IMajorService majorService, ICohortService cohortService, ICourseService courseService, IBlockOfKnowledgeService blockOfKnowledgeService)
+        public BKCourseController(IBlockOfKnowledgeCourseService blockOfKnowledgeCourse, IMajorService majorService, ICohortService cohortService, ICourseService courseService, IBlockOfKnowledgeService blockOfKnowledgeService, ICohortMajorService cohortMajorService)
         {
             _blockOfKnowledgeCourse = blockOfKnowledgeCourse;
             _majorService = majorService;
             _cohortService = cohortService;
             _courseService = courseService;
             _blockOfKnowledgeService = blockOfKnowledgeService;
+            _cohortMajorService = cohortMajorService;
         }
 
 
@@ -47,6 +49,27 @@ namespace ChuongTrinhDaoTao.WebMVC.Controllers
 
 
         [HttpGet]
+        public async Task<IActionResult> CreateOrCopy(Cohort_MajorDto cm)
+        {
+            try
+            {
+                ResponseDto? cohorts = await _cohortMajorService.GetCohortInMajorAsync(majorId : cm.MajorId);
+                CohortIMajorBM cohortIM = JsonConvert.DeserializeObject<CohortIMajorBM>(Convert.ToString(cohorts.Result));
+                ViewBag.Cohorts = cohortIM.Cohorts;
+                ResponseDto? course = await _courseService.GetAllAsync();
+                ResponseDto? blcok = await _blockOfKnowledgeService.GetAllAsync();
+                ViewBag.Courses = JsonConvert.DeserializeObject<List<CourseDto>>(Convert.ToString(course.Result));
+                ViewBag.Blocks = JsonConvert.DeserializeObject<List<BlockOfKnowledgeDto>>(Convert.ToString(blcok.Result));
+                return View(cm);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpGet]
         public async Task<IActionResult> ChuongTrinhDaoTao(int majorId, int cohortId)
         {
             try
@@ -61,8 +84,15 @@ namespace ChuongTrinhDaoTao.WebMVC.Controllers
                     ChuongTrinhDaoTaoBM? item = JsonConvert.DeserializeObject<ChuongTrinhDaoTaoBM>(Convert.ToString(response.Result));
                     return View(item);
                 }
-                TempData["error"] = "Error";
-                return BadRequest();
+                else
+                {
+                    
+                    ResponseDto? cohort = await _cohortMajorService.GetCohortMajorByIdAsync(majorId, cohortId);
+                    Cohort_MajorDto? cmDto = JsonConvert.DeserializeObject<Cohort_MajorDto>(Convert.ToString(cohort.Result));
+                    TempData["error"] = "Chua co vui long tao moi hoac sao chep";
+                    return RedirectToAction("CreateOrCopy", cmDto);
+                }
+                
             }catch (Exception ex)
             {
                 return BadRequest(ex.Message);
@@ -87,6 +117,28 @@ namespace ChuongTrinhDaoTao.WebMVC.Controllers
                 return View();
             }
             catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CopyCTDT(int majorId, int cohortIdTo, int cohortIdFrom)
+        {
+            try
+            {
+                
+                ResponseDto? response = await _blockOfKnowledgeCourse.CopyCTDTAsync(majorId, cohortIdTo, cohortIdFrom);
+                if(response != null && response.IsSuccess)
+                {
+                    TempData["success"] = "Sao chep chuong trinh dao tao thanh cong";
+                    return RedirectToAction("ChuongTrinhDaoTao", new { majorId = majorId, cohortId = cohortIdFrom });
+                }
+                TempData["error"] = "Error";
+                ResponseDto? responseCoc = await _cohortMajorService.GetCohortMajorByIdAsync(majorId, cohortIdFrom);
+                Cohort_MajorDto dtoCM = JsonConvert.DeserializeObject<Cohort_MajorDto>(Convert.ToString(responseCoc.Result));
+                return RedirectToAction("CreateOrCopy", dtoCM);
+            }catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }

@@ -23,6 +23,16 @@ namespace ChuongTrinhDaoTao.WebMVC.Services
             });
         }
 
+        public async Task<ResponseDto?> CopyCTDTAsync(int majorId, int cohortIdTo, int cohortIdFrom)
+        {
+            return await _baseService.SendAsync(new RequestDto
+            {
+                ApiType = SD.ApiType.POST,
+       
+                Url = SD.ApiBase + "/api/BlockOfKnowledgeCourses/CopyCTDT/" + majorId + "/" + cohortIdTo + "/" + cohortIdFrom
+            });
+        }
+
         public async Task<ResponseDto?> CreateAsync(BlockOfKnowledge_Course block)
         {
             return await _baseService.SendAsync(new RequestDto

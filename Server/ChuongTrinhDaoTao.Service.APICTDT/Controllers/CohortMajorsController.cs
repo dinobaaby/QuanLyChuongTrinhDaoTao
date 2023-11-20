@@ -82,7 +82,7 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Controllers
             return NotFound(_response);
         }
 
-        [HttpGet("GetCohortInMajor")]
+        [HttpGet("GetCohortInMajor/{majorId}")]
         public async Task<IActionResult> GetCohortInMajor(int majorID)
         {
             try

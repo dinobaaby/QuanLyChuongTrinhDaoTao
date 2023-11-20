@@ -1,0 +1,80 @@
+﻿@model Cohort_MajorDto
+@{
+    ViewData["Title"] = "CreateOrCopy";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-3" style="padding:20px 30px; background-color:#C0B4B4">
+        <div class="form-group">
+            <label class="form-label">Major Name</label>
+            <input type="text" value="@Model.MajorName" readonly class="form-check" />
+        </div>
+        <div class="form-group">
+            <label class="form-label">Cohor Name</label>
+            <input type="text" value="@Model.CohortName" readonly class="form-check" />
+        </div>
+    </div>
+    <div class="col-9 row">
+        <div class="col-6">
+            <form method="post" asp-action="Create" asp-controller="BKCourse">
+                <div class="form-group">
+                    <input name="MajorId" value="@Model.MajorId" hidden class="form-check" />
+                </div>
+                <div class="form-group">
+                    <input name="CohortId" value="@Model.CohortId" hidden class="form-check" />
+                </div>
+                <div class="form-group">
+                    <label>Block Name</label>
+                    <select name="BlockOfKnowledgeId" class="form-control" style="width:100%">
+                        @foreach (var item in ViewBag.Blocks)
+                        {
+                            <option value="@item.BlockOfKnowledgeId">@item.BlockOfKnowledgeName</option>
+                        }
+
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Course Name</label>
+                    <select name="CourseId" class="form-control" id="searchSelect" style="width:100%">
+                        @foreach (var item in ViewBag.Courses)
+                        {
+                            <option value="@item.CourseId">@item.CourseName</option>
+                        }
+
+                    </select>
+
+                </div>
+                <button type="submit" class="btn btn-primary btn-icon-text w-100">
+                    <i class="mdi mdi-file-check btn-icon-prepend"></i> Create New
+                </button>
+            </form>
+        </div>
+        <div class="col-6">
+            <form method="post" asp-action="CopyCTDT" asp-controller="BKCourse">
+                <div class="form-group">
+                    <input name="majorId" value="@Model.MajorId" hidden class="form-check" />
+                </div>
+                <div class="form-group">
+                    <input name="cohortIdFrom" value="@Model.CohortId" hidden class="form-check" />
+                </div>
+
+                <div class="form-group">
+                    <label>Course Name</label>
+                    <select name="cohortIdTo" class="form-control" id="searchSelect" style="width:100%">
+                        @foreach (var item in ViewBag.Cohorts)
+                        {
+                           <option value="@item.CohortId">@item.CohortName</option>
+                        }
+
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary btn-icon-text w-100">
+                    <i class="mdi mdi-file-check btn-icon-prepend"></i> Copy
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
