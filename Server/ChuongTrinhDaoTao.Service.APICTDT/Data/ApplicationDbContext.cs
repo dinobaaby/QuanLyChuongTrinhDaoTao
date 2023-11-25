@@ -21,10 +21,25 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Data
         public DbSet<Course> Courses { get; set; }
         public DbSet<BlockOfKnowledge_Course> Knowledge_Courses { get; set; }
         public DbSet<UserMajor> UserMajor { get; set; }
-
+        public DbSet<TuitionType> tuitionTypes { get; set; }
+        public DbSet<Tuition> tuitions { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<TuitionType>(entity =>
+            {
+                entity.ToTable("TuitionType");
+                entity.HasKey(c => c.TuitionTypeId);
+               
+            });
+
+            builder.Entity<Tuition>(entity =>
+            {
+                entity.ToTable("Tuition");
+                entity.HasKey(c => c.TuitionTypeId);
+                entity.HasOne(c => c.tuitionType).WithMany(c => c.Tuitions).HasForeignKey(c => c.TuitionTypeId);
+            });
 
             builder.Entity<Faculty>(entity =>
             {

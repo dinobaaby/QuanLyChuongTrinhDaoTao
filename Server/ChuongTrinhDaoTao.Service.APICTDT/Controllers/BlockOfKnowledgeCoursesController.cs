@@ -193,7 +193,7 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Controllers
             return NotFound(_response);
         }
 
-        [HttpDelete]
+        [HttpDelete("{majorId}/{cohortId}/{courseId}/{blockId}")]
         public async Task<IActionResult> Delete(int majorId, int cohortId, int courseId, int blockId)
         {
             try
@@ -201,7 +201,7 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Controllers
                 if(_context.Knowledge_Courses != null)
                 {
                     var blockC = await _context.Knowledge_Courses.FirstOrDefaultAsync(c => c.MajorId == majorId &&  c.CohortId == cohortId && c.CourseId == courseId && c.BlockOfKnowledgeId == blockId);
-                    if(blockId != null)
+                    if(blockC != null)
                     {
                         _context.Knowledge_Courses.Remove(blockC);
                         _response.Result = _mapper.Map<BlockOfKnowledge_CourseDto>(blockC);
@@ -261,6 +261,42 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Controllers
                 _response.IsSuccess = false;
                 return BadRequest(_response);
 
+            }
+            catch (Exception ex)
+            {
+                _response.Message = ex.Message;
+                _response.IsSuccess = false;
+                return BadRequest(_response);
+            }
+        }
+
+        [HttpGet("GetTotalCourse")]
+        public async Task<IActionResult> GetTotalCourse()
+        {
+            try
+            {
+                if(_context.Knowledge_Courses != null)
+                {
+                    var totalCourse = await _context.Knowledge_Courses.Include(c => c.Cohort_Major).ThenInclude(c => c.Cohort).Include(c => c.Cohort_Major).ThenInclude(c => c.Major).Include(c => c.Course).GroupBy(c => new {c.MajorId, c.CohortId} ).Select(c => new
+                    {
+                        MajorName = c.First().Cohort_Major.Major.MajorName,
+                        CohortName = c.First().Cohort_Major.Cohort.CohortName,
+                        CourseTotal = c.Count(),
+                        TotalCredits = c.Sum(c => c.Course.CodeCredits),
+                    }).ToListAsync();
+
+                    if(totalCourse != null)
+                    {
+                        _response.Result = totalCourse;
+                        return Ok(_response);
+                    }
+                    _response.Message = "Data is null";
+                    _response.IsSuccess = false;
+                    return BadRequest(_response);
+                }
+                _response.Message = "Table does not exit";
+                _response.IsSuccess = false;
+                return BadRequest(_response);
             }
             catch (Exception ex)
             {

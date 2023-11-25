@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ChuongTrinhDaoTao.WebMVC")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+705e6fd0056bef082b82a854a1776be404388232")]
 [assembly: System.Reflection.AssemblyProductAttribute("ChuongTrinhDaoTao.WebMVC")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ChuongTrinhDaoTao.WebMVC")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

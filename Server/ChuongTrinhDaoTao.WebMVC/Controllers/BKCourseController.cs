@@ -172,5 +172,30 @@ namespace ChuongTrinhDaoTao.WebMVC.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetTotalCourse()
+        {
+            try
+            {
+                ResponseDto? result  = await _blockOfKnowledgeCourse.GetTotalCourseAsync();
+                if(result != null && result.IsSuccess)
+                {
+                    List<CourseTotalBM>? list = JsonConvert.DeserializeObject<List<CourseTotalBM>>(Convert.ToString(result.Result));
+                    if(list != null && list.Count > 0)
+                    {
+                        return View(list);
+                    }
+                    TempData["error"] = "Value is null";
+                    return BadRequest();
+                }
+                TempData["error"] = "Api cf null";
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

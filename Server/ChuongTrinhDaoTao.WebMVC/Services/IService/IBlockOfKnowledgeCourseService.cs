@@ -9,5 +9,6 @@ namespace ChuongTrinhDaoTao.WebMVC.Services.IService
         Task<ResponseDto?> ChiTietChuongTrinhDaiHocAsync(int majorId, int cohortId);
         Task<ResponseDto?> CreateAsync(BlockOfKnowledge_Course block);
         Task<ResponseDto?> CopyCTDTAsync(int majorId, int cohortIdTo, int cohortIdFrom);
+        Task<ResponseDto?> GetTotalCourseAsync();
     }
 }

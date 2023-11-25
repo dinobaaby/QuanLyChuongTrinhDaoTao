@@ -268,6 +268,47 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Migrations
                     b.ToTable("Major", (string)null);
                 });
 
+            modelBuilder.Entity("ChuongTrinhDaoTao.Service.APICTDT.Models.Tuition", b =>
+                {
+                    b.Property<int>("TuitionTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
+
+                    b.Property<string>("TuitionDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TuitionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TuitionName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TuitionTypeId");
+
+                    b.ToTable("Tuition", (string)null);
+                });
+
+            modelBuilder.Entity("ChuongTrinhDaoTao.Service.APICTDT.Models.TuitionType", b =>
+                {
+                    b.Property<int>("TuitionTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TuitionTypeId"));
+
+                    b.Property<string>("TuitionTypename")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TuitionTypeId");
+
+                    b.ToTable("TuitionType", (string)null);
+                });
+
             modelBuilder.Entity("ChuongTrinhDaoTao.Service.APICTDT.Models.UserMajor", b =>
                 {
                     b.Property<string>("UserId")
@@ -478,6 +519,17 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Migrations
                     b.Navigation("Faculty");
                 });
 
+            modelBuilder.Entity("ChuongTrinhDaoTao.Service.APICTDT.Models.Tuition", b =>
+                {
+                    b.HasOne("ChuongTrinhDaoTao.Service.APICTDT.Models.TuitionType", "tuitionType")
+                        .WithMany("Tuitions")
+                        .HasForeignKey("TuitionTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("tuitionType");
+                });
+
             modelBuilder.Entity("ChuongTrinhDaoTao.Service.APICTDT.Models.UserMajor", b =>
                 {
                     b.HasOne("ChuongTrinhDaoTao.Service.APICTDT.Models.Cohort", "Cohort")
@@ -593,6 +645,11 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Migrations
                     b.Navigation("MajorCohorts");
 
                     b.Navigation("MajorsUser");
+                });
+
+            modelBuilder.Entity("ChuongTrinhDaoTao.Service.APICTDT.Models.TuitionType", b =>
+                {
+                    b.Navigation("Tuitions");
                 });
 #pragma warning restore 612, 618
         }

@@ -51,5 +51,14 @@ namespace ChuongTrinhDaoTao.WebMVC.Services
                 Url = SD.ApiBase + "/api/BlockOfKnowledgeCourses"
             });
         }
+
+        public async Task<ResponseDto?> GetTotalCourseAsync()
+        {
+            return await _baseService.SendAsync(new RequestDto
+            {
+                ApiType = SD.ApiType.GET,
+                Url = SD.ApiBase + "/api/BlockOfKnowledgeCourses/GetTotalCourse"
+            });
+        }
     }
 }

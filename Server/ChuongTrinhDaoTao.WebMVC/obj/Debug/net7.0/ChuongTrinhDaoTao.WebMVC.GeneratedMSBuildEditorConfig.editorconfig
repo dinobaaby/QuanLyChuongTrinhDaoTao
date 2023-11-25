@@ -10,6 +10,8 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ChuongTrinhDaoTao.WebMVC
 build_property.RootNamespace = ChuongTrinhDaoTao.WebMVC
 build_property.ProjectDir = D:\HK5\Web\QuanLyChuongTrinhDaoTao\Server\ChuongTrinhDaoTao.WebMVC\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
@@ -30,6 +32,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/HK5/Web/QuanLyChuongTrinhDaoTao/Server/ChuongTrinhDaoTao.WebMVC/Views/BKCourse/CreateOrCopy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQktDb3Vyc2VcQ3JlYXRlT3JDb3B5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK5/Web/QuanLyChuongTrinhDaoTao/Server/ChuongTrinhDaoTao.WebMVC/Views/BKCourse/GetTotalCourse.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQktDb3Vyc2VcR2V0VG90YWxDb3Vyc2UuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/HK5/Web/QuanLyChuongTrinhDaoTao/Server/ChuongTrinhDaoTao.WebMVC/Views/BKCourse/Index.cshtml]

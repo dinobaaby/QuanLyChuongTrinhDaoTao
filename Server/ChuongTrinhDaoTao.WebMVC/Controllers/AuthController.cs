@@ -40,7 +40,7 @@ namespace ChuongTrinhDaoTao.WebMVC.Controllers
                     LoginResponseDto responseLogin = JsonConvert.DeserializeObject<LoginResponseDto>(Convert.ToString(response.Result));
                     await SignInAsync(responseLogin);
                     _tokenProvider.SetToken(responseLogin.Token);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Admin", "Home");
                 }
                 return View(login);
             }

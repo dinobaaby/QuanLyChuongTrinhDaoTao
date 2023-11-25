@@ -13,10 +13,6 @@ namespace ChuongTrinhDaoTao.WebMVC.Services
             _baseService = baseService;
         }
 
-        
-
-       
-
         public async Task<ResponseDto?> AssignRoleAsync(RegisterationRequestDto assignRoleRequestDto)
         {
             return await _baseService.SendAsync(new RequestDto()
