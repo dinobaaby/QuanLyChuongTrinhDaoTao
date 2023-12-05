@@ -11,6 +11,6 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Models
         [Required]
         public string TuitionTypename { get; set; }
 
-        public virtual ICollection<Tuition?> Tuitions { get; set;}
+        public virtual ICollection<Tuition>? Tuitions { get; set;}
     }
 }

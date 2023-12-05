@@ -2,21 +2,23 @@
 @{
     ViewData["Title"] = "GetTotalCourse";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    
 }
 
 
 
 <div class="col-lg-12 grid-margin bg-white stretch-card">
+    
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
                 <table id="bootstrap-data-table" class="table">
                     <thead>
                         <tr>
-                            <th>Major Name</th>
-                            <th>Cohort Name</th>
-                            <th>Total Course</th>
-                            <th>Total CodeCredits</th>
+                            <th>Tên Ngành </th>
+                            <th>Tên Khóa </th>
+                            <th>Tổng học phần </th>
+                            <th>Tổng tín chỉ</th>
                            
                         </tr>
                     </thead>
@@ -24,10 +26,10 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>@item.MajorName</td>
-                                <td>@item.CohortName</td>
-                                <td>@item.CourseTotal</td>
-                                <td>@item.TotalCredits</td>
+                                <td style="color: #fff; font-weight: bold;">@item.MajorName</td>
+                                <td style="font-weight: bold;color: #fff;">@item.CohortName</td>
+                                <td style="font-weight: bold;color: #fff;">@item.CourseTotal</td>
+                                <td style="font-weight: bold;color: #fff;">@item.TotalCredits</td>
  
                             </tr>
                         }
@@ -40,3 +42,78 @@
     </div>
 </div>
 <!-- Scripts -->
+@section Scripts{
+
+
+    <link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" rel="stylesheet" />
+
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+
+    <script type="text/javascript">
+        $('#bootstrap-data-table').dataTable({
+
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    title: 'Excel',
+                    text: 'Export to excel',
+                    
+                    //Columns to export
+                    //exportOptions: {
+                    //     columns: [0, 1, 2, 3,4,5,6]
+                    // }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    title: 'Tổng quan chương trình đào tạo',
+                    text: 'Export to PDF',
+                    customize: function (doc) {
+
+
+                        // Add a custom title
+                        doc.content[0].text = 'Thống kê tổng quan chương trình đào tạo';
+
+                        // Change font styles
+                        doc.styles.title = {
+                            fontSize: '20',
+                            bold: true,
+                            color: 'red'
+                        };
+
+                        // Adjust column widths
+                        doc.content[1].table.widths = ['auto', 'auto', 'auto', 'auto'];
+                        doc.content[1].table.styles = 'center'
+                        // Customize the header
+                        doc.header = function () {
+                            return {
+                                text: '',
+                                style: 'headerStyle'
+                            };
+                        };
+
+                        // Add custom styling for the header
+                        doc.styles.headerStyle = {
+                            fontSize: 18,
+                            bold: true,
+                            color: 'blue'
+                        };
+                        
+                    },
+                    
+                }
+            ]
+        });
+    </script>
+
+
+
+
+
+
+}

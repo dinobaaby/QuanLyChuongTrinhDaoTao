@@ -50,6 +50,31 @@ namespace ChuongTrinhDaoTao.WebMVC.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View(new RegisterationRequestDto());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterationRequestDto registerationRequest)
+        {
+            try
+            {
+                ResponseDto response = await _authService.RegisterAsync(registerationRequest);
+                if(response != null && response.IsSuccess)
+                {
+                    TempData["success"] = "Create acount Successful";
+                    return RedirectToAction("Login");
+                }
+                TempData["error"] = "Create acount failed";
+                return View(registerationRequest);
+            }catch  (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         private async Task SignInAsync(LoginResponseDto model)
         {
@@ -59,10 +84,7 @@ namespace ChuongTrinhDaoTao.WebMVC.Controllers
             identity.AddClaim(new Claim(JwtRegisteredClaimNames.Email, jwt.Claims.FirstOrDefault(u => u.Type == JwtRegisteredClaimNames.Email).Value));
             identity.AddClaim(new Claim(JwtRegisteredClaimNames.Sub, jwt.Claims.FirstOrDefault(u => u.Type == JwtRegisteredClaimNames.Sub).Value));
             identity.AddClaim(new Claim(JwtRegisteredClaimNames.Name, jwt.Claims.FirstOrDefault(u => u.Type == JwtRegisteredClaimNames.Name).Value));
-
-
             identity.AddClaim(new Claim(ClaimTypes.Name, jwt.Claims.FirstOrDefault(u => u.Type == JwtRegisteredClaimNames.Email).Value));
-
             identity.AddClaim(new Claim(ClaimTypes.Role, jwt.Claims.FirstOrDefault(u => u.Type == "role").Value));
 
             var principal = new ClaimsPrincipal(identity);

@@ -43,12 +43,31 @@ namespace ChuongTrinhDaoTao.WebMVC.Services
             });
         }
 
+        public async Task<ResponseDto?> DeleteCourseInCtdtAsync(int majorId, int cohortId, int courseId, int blockId)
+        {
+            return await _baseService.SendAsync(new RequestDto
+            {
+                ApiType = SD.ApiType.DELETE,
+             
+                Url = SD.ApiBase + "/api/BlockOfKnowledgeCourses/" + majorId + "/" + cohortId + "/" + courseId + "/" + blockId
+            });
+        }
+
         public async Task<ResponseDto?> GetAllAsync()
         {
             return await _baseService.SendAsync(new RequestDto
             {
                 ApiType = SD.ApiType.GET,
                 Url = SD.ApiBase + "/api/BlockOfKnowledgeCourses"
+            });
+        }
+
+        public async Task<ResponseDto?> GetCourseInBlockAsync(int blockCourseId)
+        {
+            return await _baseService.SendAsync(new RequestDto
+            {
+                ApiType = SD.ApiType.GET,
+                Url = SD.ApiBase + "/api/BlockOfKnowledgeCourses/CourseInBlockCourse/" + blockCourseId
             });
         }
 

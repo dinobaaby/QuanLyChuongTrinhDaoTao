@@ -22,5 +22,6 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Models
 
         [ForeignKey("TuitionTypeId")]
         public virtual TuitionType? tuitionType { get; set; }
+        public virtual ICollection<TuitionCTDT>? TuitionCTDTs { get; set; }
     }
 }

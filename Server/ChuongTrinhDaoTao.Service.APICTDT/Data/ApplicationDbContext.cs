@@ -23,6 +23,7 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Data
         public DbSet<UserMajor> UserMajor { get; set; }
         public DbSet<TuitionType> tuitionTypes { get; set; }
         public DbSet<Tuition> tuitions { get; set; }
+        public DbSet<TuitionCTDT>  TuitionCTDTs { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -37,7 +38,7 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Data
             builder.Entity<Tuition>(entity =>
             {
                 entity.ToTable("Tuition");
-                entity.HasKey(c => c.TuitionTypeId);
+                entity.HasKey(c => c.TuitionId);
                 entity.HasOne(c => c.tuitionType).WithMany(c => c.Tuitions).HasForeignKey(c => c.TuitionTypeId);
             });
 
@@ -81,6 +82,12 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Data
                 entity.HasOne(e => e.Course).WithMany(e => e.CourseBlocks).HasForeignKey(e => e.CourseId);
                 
 
+            });
+            builder.Entity<TuitionCTDT>(entity =>
+            {
+                entity.ToTable("TuitionCTDT");
+                entity.HasKey(e => new { e.TuitionId,  e.MajorId, e.CohortId });
+               
             });
             builder.Entity<UserMajor>(entity =>
             {

@@ -1,0 +1,65 @@
+﻿@model IEnumerable<ChuongTrinhDaoTao.WebMVC.BussinessModel.TuitionCTDTBM>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+>
+
+
+
+<div class="col-lg-12 grid-margin bg-white stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <a class="btn btn-outline-success btn-sm" style="width:200px;margin-bottom:20px;" asp-controller="TuitionCTDT" asp-action="Create">Create</a>
+
+            <div class="table-responsive">
+                <table id="bootstrap-data-table" class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Tên ngành 
+                            </th>
+                            <th>
+                                Tên khóa 
+                            </th>
+                            <th>
+                                Tổng số môn học 
+                            </th>
+                            <th>
+                                Tổng số tín chỉ
+                            </th>
+                            <th>
+                                Tổng tiền học 
+                            </th>
+                            <th>
+                                Tiền học yêu cầu
+                            </th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                               
+                                <td>@item.MajorName</td>
+                                <td>@item.CohortName</td>
+                                <td>@item.TotalC</td>
+                                <td>@item.CodeCreditsTotal</td>
+                                <td>@item.Tuition</td>
+                                <td>@item.TuitionRequire</td>
+                       
+                                <td>
+                                    <a asp-action="Delete" asp-controller="TuitionCTDT" asp-route-id="@item.MajorId" class="btn btn-danger btn-icon-text">Delete</a>
+                                </td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

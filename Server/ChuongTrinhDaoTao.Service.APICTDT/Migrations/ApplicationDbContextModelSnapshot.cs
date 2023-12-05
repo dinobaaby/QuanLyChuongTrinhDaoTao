@@ -270,8 +270,11 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Migrations
 
             modelBuilder.Entity("ChuongTrinhDaoTao.Service.APICTDT.Models.Tuition", b =>
                 {
-                    b.Property<int>("TuitionTypeId")
+                    b.Property<int>("TuitionId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TuitionId"));
 
                     b.Property<float>("Price")
                         .HasColumnType("real");
@@ -280,16 +283,36 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TuitionId")
-                        .HasColumnType("int");
-
                     b.Property<string>("TuitionName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("TuitionTypeId");
+                    b.Property<int>("TuitionTypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TuitionId");
+
+                    b.HasIndex("TuitionTypeId");
 
                     b.ToTable("Tuition", (string)null);
+                });
+
+            modelBuilder.Entity("ChuongTrinhDaoTao.Service.APICTDT.Models.TuitionCTDT", b =>
+                {
+                    b.Property<int>("TuitionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MajorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CohortId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TuitionId", "MajorId", "CohortId");
+
+                    b.HasIndex("CohortId", "MajorId");
+
+                    b.ToTable("TuitionCTDT", (string)null);
                 });
 
             modelBuilder.Entity("ChuongTrinhDaoTao.Service.APICTDT.Models.TuitionType", b =>
@@ -530,6 +553,25 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Migrations
                     b.Navigation("tuitionType");
                 });
 
+            modelBuilder.Entity("ChuongTrinhDaoTao.Service.APICTDT.Models.TuitionCTDT", b =>
+                {
+                    b.HasOne("ChuongTrinhDaoTao.Service.APICTDT.Models.Tuition", "Tuition")
+                        .WithMany("TuitionCTDTs")
+                        .HasForeignKey("TuitionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ChuongTrinhDaoTao.Service.APICTDT.Models.Cohort_Major", "Cohort_Major")
+                        .WithMany("TuitionCTDTs")
+                        .HasForeignKey("CohortId", "MajorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cohort_Major");
+
+                    b.Navigation("Tuition");
+                });
+
             modelBuilder.Entity("ChuongTrinhDaoTao.Service.APICTDT.Models.UserMajor", b =>
                 {
                     b.HasOne("ChuongTrinhDaoTao.Service.APICTDT.Models.Cohort", "Cohort")
@@ -628,6 +670,8 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Migrations
             modelBuilder.Entity("ChuongTrinhDaoTao.Service.APICTDT.Models.Cohort_Major", b =>
                 {
                     b.Navigation("BlockOfKnowledge_Courses");
+
+                    b.Navigation("TuitionCTDTs");
                 });
 
             modelBuilder.Entity("ChuongTrinhDaoTao.Service.APICTDT.Models.Course", b =>
@@ -645,6 +689,11 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Migrations
                     b.Navigation("MajorCohorts");
 
                     b.Navigation("MajorsUser");
+                });
+
+            modelBuilder.Entity("ChuongTrinhDaoTao.Service.APICTDT.Models.Tuition", b =>
+                {
+                    b.Navigation("TuitionCTDTs");
                 });
 
             modelBuilder.Entity("ChuongTrinhDaoTao.Service.APICTDT.Models.TuitionType", b =>

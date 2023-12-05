@@ -20,6 +20,9 @@ builder.Services.AddHttpClient<IBlockOfKnowledgeService, BlockOfKnowledgeService
 builder.Services.AddHttpClient<ICohortMajorService, CohortMajorService>();
 builder.Services.AddHttpClient<ICourseService, CourseService>();
 builder.Services.AddHttpClient<IBlockOfKnowledgeCourseService, BlockOfKnowledgeCourseService>();
+builder.Services.AddHttpClient<ITuitionTypeService, TuitionTypeService>();
+builder.Services.AddHttpClient<ITuitionService, TuitionService>();
+builder.Services.AddHttpClient<ITuitionCTDTService, TuitionCTDTService>();
 SD.ApiBase = builder.Configuration["ServiceUrls:WebApi"];
 
 
@@ -33,7 +36,9 @@ builder.Services.AddScoped<ITokenProvider, TokenProvider>();
 builder.Services.AddScoped<IBaseService, BaseService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IFacultyService, FacultyService>();
-
+builder.Services.AddScoped<ITuitionTypeService, TuitionTypeService>();
+builder.Services.AddScoped<ITuitionService, TuitionService>();
+builder.Services.AddScoped<ITuitionCTDTService, TuitionCTDTService>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
 {
     options.ExpireTimeSpan = TimeSpan.FromHours(10);
@@ -65,7 +70,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Admin}/{id?}");
 
 app.Run();
 

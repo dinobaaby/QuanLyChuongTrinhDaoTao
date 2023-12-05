@@ -12,6 +12,7 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Models
         
         public virtual Cohort? Cohort { get; set; }
         public virtual Major? Major { get; set; }
-        public virtual ICollection<BlockOfKnowledge_Course> BlockOfKnowledge_Courses { get; set; }
+        public virtual ICollection<BlockOfKnowledge_Course>? BlockOfKnowledge_Courses { get; set; }
+        public virtual ICollection<TuitionCTDT>? TuitionCTDTs { get; set; }
     }
 }

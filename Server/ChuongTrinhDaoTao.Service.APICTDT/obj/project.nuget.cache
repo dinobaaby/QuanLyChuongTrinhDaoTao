@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "TaMSnMNdUBf3uX8vmv51WIx3haITjAvF9YB9rQB8qdYjum+nXP6zQbn/WB3ToW6BMA/Mzr3g66mLAGWRfhljsQ==",
+  "dgSpecHash": "6BrWmDRhIjgCbQ9ArC8ua8W2YuMZtT5yiosE1aNApZb+uvDmGXDSDIWXOyKRZFF/0I/YyQFwc6HTYjLX8zkJAw==",
   "success": true,
   "projectFilePath": "D:\\HK5\\Web\\QuanLyChuongTrinhDaoTao\\Server\\ChuongTrinhDaoTao.Service.APICTDT\\ChuongTrinhDaoTao.Service.APICTDT.csproj",
   "expectedPackageFiles": [
@@ -81,8 +81,8 @@
     "C:\\Users\\hieut\\.nuget\\packages\\microsoft.codeanalysis.scripting.common\\4.4.0\\microsoft.codeanalysis.scripting.common.4.4.0.nupkg.sha512",
     "C:\\Users\\hieut\\.nuget\\packages\\microsoft.codeanalysis.workspaces.common\\4.4.0\\microsoft.codeanalysis.workspaces.common.4.4.0.nupkg.sha512",
     "C:\\Users\\hieut\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
-    "C:\\Users\\hieut\\.nuget\\packages\\microsoft.data.sqlclient\\5.1.1\\microsoft.data.sqlclient.5.1.1.nupkg.sha512",
-    "C:\\Users\\hieut\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\5.1.0\\microsoft.data.sqlclient.sni.runtime.5.1.0.nupkg.sha512",
+    "C:\\Users\\hieut\\.nuget\\packages\\microsoft.data.sqlclient\\5.1.2\\microsoft.data.sqlclient.5.1.2.nupkg.sha512",
+    "C:\\Users\\hieut\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\5.1.1\\microsoft.data.sqlclient.sni.runtime.5.1.1.nupkg.sha512",
     "C:\\Users\\hieut\\.nuget\\packages\\microsoft.diasymreader\\1.4.0\\microsoft.diasymreader.1.4.0.nupkg.sha512",
     "C:\\Users\\hieut\\.nuget\\packages\\microsoft.dotnet.scaffolding.shared\\7.0.11\\microsoft.dotnet.scaffolding.shared.7.0.11.nupkg.sha512",
     "C:\\Users\\hieut\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.12\\microsoft.entityframeworkcore.7.0.12.nupkg.sha512",

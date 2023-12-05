@@ -1,168 +1,215 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
 using ChuongTrinhDaoTao.Service.APICTDT.Data;
 using ChuongTrinhDaoTao.Service.APICTDT.Models;
+using ChuongTrinhDaoTao.Service.APICTDT.Models.Dto;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChuongTrinhDaoTao.Service.APICTDT.Controllers
 {
-    public class TuitionsController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class TuitionsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-
-        public TuitionsController(ApplicationDbContext context)
+        private readonly IMapper _mapper;
+        protected ResponseDto _response;
+        public TuitionsController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
+            _response = new ResponseDto();
         }
 
-        // GET: Tuitions
-        public async Task<IActionResult> Index()
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
         {
-            var applicationDbContext = _context.tuitions.Include(t => t.tuitionType);
-            return View(await applicationDbContext.ToListAsync());
-        }
-
-        // GET: Tuitions/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.tuitions == null)
+            try
             {
-                return NotFound();
-            }
+                if (_context.tuitions == null)
+                {
+                    _response.IsSuccess = false;
+                    _response.Message = "Table is not exit";
+                    return BadRequest(_response);
+                }
+                var tuitionResult = await _context.tuitions.Include(x => x.tuitionType).ToListAsync();
+                if (tuitionResult.Count == 0)
+                {
+                    _response.IsSuccess = false;
+                    _response.Message = "Data is null";
+                    return BadRequest(_response);
+                }
+                IEnumerable<TuitionDto> dto = _mapper.Map<IEnumerable<TuitionDto>>(tuitionResult);
+                var result = dto.Select(x => new
+                {
 
-            var tuition = await _context.tuitions
-                .Include(t => t.tuitionType)
-                .FirstOrDefaultAsync(m => m.TuitionTypeId == id);
-            if (tuition == null)
+                    TuitionId = x.TuitionId,
+                    TuitionName = x.TuitionName,
+                    TuitionDescription = x.TuitionDescription,
+                    Price = x.Price,
+                    TuitionTypeId = x.TuitionTypeId,
+                    TuitionTypeName = x.tuitionType.TuitionTypename,
+
+                });
+
+                _response.Result = result;
+                return Ok(_response);
+            }
+            catch (Exception ex)
             {
-                return NotFound();
+                _response.IsSuccess = false;
+                _response.Message = ex.Message;
+                return BadRequest(_response);
             }
-
-            return View(tuition);
         }
 
-        // GET: Tuitions/Create
-        public IActionResult Create()
+        [HttpPut]
+        public async Task<IActionResult> Edit(TuitionDto dto)
         {
-            ViewData["TuitionTypeId"] = new SelectList(_context.tuitionTypes, "TuitionTypeId", "TuitionTypename");
-            return View();
+            try
+            {
+                if (_context.tuitions == null)
+                {
+                    _response.IsSuccess = false;
+                    _response.Message = "Table is not exit";
+                    return BadRequest(_response);
+                }
+                Tuition tuition = _mapper.Map<Tuition>(dto);
+                _context.tuitions.Update(tuition);
+                await _context.SaveChangesAsync();
+                _response.Result = _mapper.Map<TuitionDto>(tuition);
+                return Ok(_response);
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.Message;
+                return BadRequest(_response);
+            }
         }
-
-        // POST: Tuitions/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TuitionId,TuitionName,TuitionDescription,Price,TuitionTypeId")] Tuition tuition)
+        public async Task<IActionResult> Create(TuitionDto dto)
         {
-            if (ModelState.IsValid)
+            try
             {
+                if (_context.tuitions == null)
+                {
+                    _response.IsSuccess = false;
+                    _response.Message = "Table is not exit";
+                    return BadRequest(_response);
+                }
+                Tuition tuition = _mapper.Map<Tuition>(dto);
                 _context.Add(tuition);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                _response.Result = _mapper.Map<TuitionDto>(tuition);
+                return Ok(_response);
             }
-            ViewData["TuitionTypeId"] = new SelectList(_context.tuitionTypes, "TuitionTypeId", "TuitionTypename", tuition.TuitionTypeId);
-            return View(tuition);
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.Message;
+                return BadRequest(_response);
+            }
         }
 
-        // GET: Tuitions/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
         {
-            if (id == null || _context.tuitions == null)
+            try
             {
-                return NotFound();
-            }
-
-            var tuition = await _context.tuitions.FindAsync(id);
-            if (tuition == null)
-            {
-                return NotFound();
-            }
-            ViewData["TuitionTypeId"] = new SelectList(_context.tuitionTypes, "TuitionTypeId", "TuitionTypename", tuition.TuitionTypeId);
-            return View(tuition);
-        }
-
-        // POST: Tuitions/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TuitionId,TuitionName,TuitionDescription,Price,TuitionTypeId")] Tuition tuition)
-        {
-            if (id != tuition.TuitionTypeId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
+                if (_context.tuitions == null)
                 {
-                    _context.Update(tuition);
-                    await _context.SaveChangesAsync();
+                    _response.IsSuccess = false;
+                    _response.Message = "Table is not exit";
+                    return BadRequest(_response);
                 }
-                catch (DbUpdateConcurrencyException)
+                Tuition result = await _context.tuitions.Include(c => c.tuitionType).FirstOrDefaultAsync(t => t.TuitionId == id);
+                if (result == null)
                 {
-                    if (!TuitionExists(tuition.TuitionTypeId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    _response.IsSuccess = false;
+                    _response.Message = "Data is null";
+                    return BadRequest(_response);
                 }
-                return RedirectToAction(nameof(Index));
+                var dto = _mapper.Map<TuitionDto>(result);
+                _response.Result = new
+                {
+                    TuitionId = dto.TuitionId,
+                    TuitionName = dto.TuitionName,
+                    TuitionDescription = dto.TuitionDescription,
+                    Price = dto.Price,
+                    TuitionTypeId = dto.TuitionTypeId,
+                    TuitionTypeName = dto.tuitionType.TuitionTypename,
+                };
+                return Ok(_response);
+
             }
-            ViewData["TuitionTypeId"] = new SelectList(_context.tuitionTypes, "TuitionTypeId", "TuitionTypename", tuition.TuitionTypeId);
-            return View(tuition);
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.Message;
+                return BadRequest(_response);
+            }
         }
 
-        // GET: Tuitions/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null || _context.tuitions == null)
+            try
             {
-                return NotFound();
-            }
-
-            var tuition = await _context.tuitions
-                .Include(t => t.tuitionType)
-                .FirstOrDefaultAsync(m => m.TuitionTypeId == id);
-            if (tuition == null)
-            {
-                return NotFound();
-            }
-
-            return View(tuition);
-        }
-
-        // POST: Tuitions/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.tuitions == null)
-            {
-                return Problem("Entity set 'ApplicationDbContext.tuitions'  is null.");
-            }
-            var tuition = await _context.tuitions.FindAsync(id);
-            if (tuition != null)
-            {
+                if (_context.tuitions == null)
+                {
+                    _response.IsSuccess = false;
+                    _response.Message = "Table is not exit";
+                    return BadRequest(_response);
+                }
+                Tuition tuition = await _context.tuitions.FirstOrDefaultAsync(t => t.TuitionId ==  id);
+                if(tuition == null)
+                {
+                    _response.IsSuccess = false;
+                    _response.Message = "Data is null";
+                    return BadRequest(_response);
+                }
                 _context.tuitions.Remove(tuition);
+                await _context.SaveChangesAsync();
+                _response.Message = "Delete successful";
+                return Ok(_response);
             }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.Message;
+                return BadRequest(_response);
+            }
         }
 
-        private bool TuitionExists(int id)
+        [HttpGet("GetTuitionInType/{id}")]
+        public async Task<IActionResult> GetTuitionInType(int id)
         {
-          return (_context.tuitions?.Any(e => e.TuitionTypeId == id)).GetValueOrDefault();
+            try
+            {
+                if (_context.tuitions == null)
+                {
+                    _response.IsSuccess = false;
+                    _response.Message = "Table is not exit";
+                    return BadRequest(_response);
+                }
+                List<Tuition> tuitions = await _context.tuitions.Where(t => t.TuitionTypeId == id).ToListAsync();
+                if(tuitions.Count == 0)
+                {
+                    _response.IsSuccess = false;
+                    _response.Message = "Data is null";
+                    return BadRequest(_response);
+                }
+                _response.Result = _mapper.Map<IEnumerable<TuitionDto>>(tuitions);
+                return Ok(_response);
+            }catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.Message;
+                return BadRequest(_response);
+            }
         }
     }
 }

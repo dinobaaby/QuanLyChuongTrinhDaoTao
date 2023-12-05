@@ -43,14 +43,12 @@
                 <table id="bootstrap-data-table" class="table">
                     <thead>
                         <tr>
-                            <th class="col-3">CohortName</th>
-                            <th class="col-3 ">MajorName</th>
+                            <th class="col-3">CourseCode</th>
+                            <th class="col-3 ">CourseName</th>
                             <th class="col-3 ">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-
-
                         @foreach (var coursea in item.Courses)
                         {
                             <tr>
@@ -59,7 +57,10 @@
                                 <td>@coursea.CourseName</td>
                                 <td>
                                     <a class="btn btn-info btn-icon-text">Edit</a>
-                                    <a class="btn btn-danger btn-icon-text">Delete</a>
+                                    <a href="#" onclick="confirmDelete('@Model.CohortMajor.MajorId', '@Model.CohortMajor.CohortId', '@coursea.CourseId', '@item.BlockOfKnowledgeName.BlockOfKnowledgeId')" class="btn btn-danger btn-icon-text">Delete</a>
+
+                                   
+
 
                                 </td>
                             </tr>
@@ -147,4 +148,16 @@ else
         </div>
     </form>
 }
-
+@section Scripts{
+    <script>
+        function confirmDelete(majorId, cohortId, courseId, blockId) {
+            var confirmation = confirm("Are you sure you want to delete?");
+            if (confirmation) {
+                
+                window.location.href = "/BKCourse/DeteteCourseInCtdt?majorId=" + majorId + "&cohortId=" + cohortId + "&courseId=" + courseId + "&blockId=" + blockId;
+            } else {
+              
+            }
+        }
+    </script>
+}

@@ -197,5 +197,52 @@ namespace ChuongTrinhDaoTao.WebMVC.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet] 
+        public async Task<IActionResult> DeteteCourseInCtdt(int majorId, int cohortId, int courseId, int blockId)
+        {
+            try
+            {
+                ResponseDto? result = await _blockOfKnowledgeCourse.DeleteCourseInCtdtAsync(majorId, cohortId, courseId, blockId);
+                if(result != null && result.IsSuccess)
+                {
+                    TempData["success"] = "Detele course successful";
+                    return RedirectToAction("ChuongTrinhDaoTao", new {majorId = majorId, cohortId = cohortId});
+                }
+                TempData["error"] = "Api cf null";
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CourseInBlock(int blockCourseId)
+        {
+            try
+            {
+                ResponseDto? response = await _blockOfKnowledgeCourse.GetCourseInBlockAsync(blockCourseId);
+                if (response != null && response.IsSuccess)
+                {
+                    TempData["success"] = "Get course successful";
+                    CourseBlockBM courses = JsonConvert.DeserializeObject<CourseBlockBM>(Convert.ToString(response.Result));
+                    if(courses !=  null)
+                    {
+                        return View(courses);
+                    }
+                    return RedirectToAction("Index", "BlockOfKnowledge");
+                }
+                return BadRequest();
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+           
+        }
     }
 }

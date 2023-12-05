@@ -82,7 +82,11 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Controllers
                             Courses = courseDto.Select(c => new
                             {
                                 CourseId = c.CourseId,
-                                CourseName = c.Course.CourseName
+                                CourseCode = c.Course.CourseCode,
+                                CourseName = c.Course.CourseName,
+                                CodeCredits = c.Course.CodeCredits,
+                                CourseMaterials = c.Course.CourseMaterials
+
                             }).Distinct().ToList()
                         };
                         return Ok(_response);
@@ -204,6 +208,7 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Controllers
                     if(blockC != null)
                     {
                         _context.Knowledge_Courses.Remove(blockC);
+                        await _context.SaveChangesAsync();
                         _response.Result = _mapper.Map<BlockOfKnowledge_CourseDto>(blockC);
                         return Ok(_response);
                     }

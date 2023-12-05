@@ -33,6 +33,15 @@ namespace ChuongTrinhDaoTao.Service.APICTDT.Helpers
 
                 configs.CreateMap<UserMajor, UserMajorDto>();
                 configs.CreateMap<UserMajorDto, UserMajor>();   
+
+                configs.CreateMap<TuitionType, TuitionTypeDto>();
+                configs.CreateMap<TuitionTypeDto,  TuitionType>();
+
+                configs.CreateMap<Tuition, TuitionDto>();
+                configs.CreateMap<TuitionDto, Tuition>();
+
+                configs.CreateMap<TuitionCTDTDto, TuitionCTDT>();
+                configs.CreateMap<TuitionCTDT, TuitionCTDTDto>();
             });
             return mappingConfig;
         }

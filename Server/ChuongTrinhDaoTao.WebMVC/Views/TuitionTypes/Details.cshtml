@@ -1,0 +1,35 @@
+﻿@model ChuongTrinhDaoTao.WebMVC.Models.TuitionTypeDto
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>TuitionTypeDto</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TuitionTypeId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TuitionTypeId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TuitionTypename)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TuitionTypename)
+        </dd>
+    </dl>
+</div>
+<div class="row">
+    <a asp-action="Edit" asp-controller="TuitionTypes" asp-route-id="@Model.TuitionTypeId" type="button" class="btn btn-success btn-icon-text">
+        <i class="mdi mdi-upload btn-icon-prepend"></i> Edit
+    </a>
+    <a asp-action="Index" asp-controller="TuitionTypes" type="button" class="btn btn-danger btn-icon-text">
+        <i class="mdi mdi-upload btn-icon-prepend"></i> Cancer
+    </a>
+</div>

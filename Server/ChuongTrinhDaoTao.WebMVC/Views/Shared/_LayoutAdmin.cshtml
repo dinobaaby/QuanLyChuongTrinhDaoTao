@@ -17,6 +17,11 @@
     <link rel="stylesheet" href="~/vendors/select2/select2.min.css">
     <link rel="stylesheet" href="~/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
     <link rel="stylesheet" href="~/css/style2.css">
+    <!-- Add these lines to include DataTables and Buttons with PDF export -->
+    <!-- Add this in the head section of your HTML -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
     <!-- Include jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
@@ -34,6 +39,20 @@
  
     <!-- End layout styles -->
     <link rel="shortcut icon" href="~/images/favicon1.png" />
+    <style>
+        body input:focus {
+            border-color: #007bff; /* Change the border color when in focus */
+            outline: none; /* Remove the default focus outline (optional) */
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add a box shadow when in focus */
+            color: #fff;
+        }
+        th, td{
+            color: #fff;
+
+        }
+
+        
+    </style>
 </head>
 <body>
     <div class="container-scroller">
@@ -100,6 +119,15 @@
                 <li class="nav-item menu-items">
                     <a class="nav-link" asp-action="Index" asp-controller="Faculty">
                         <span class="menu-icon">
+                            <i class="mdi mdi-account-card-details"></i>
+                        </span>
+                        <span class="menu-title">Dashboard</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item menu-items">
+                    <a class="nav-link" asp-action="Index" asp-controller="Faculty">
+                        <span class="menu-icon">
                             <i class="mdi mdi-speedometer"></i>
                         </span>
                         <span class="menu-title">Faculty</span>
@@ -116,7 +144,7 @@
                 <li class="nav-item menu-items">
                     <a class="nav-link" asp-action="Index" asp-controller="Cohort">
                         <span class="menu-icon">
-                            <i class="mdi mdi-access-point"></i>
+                            <i class="mdi mdi-database"></i>
                         </span>
                         <span class="menu-title">Cohort</span>
                     </a>
@@ -146,30 +174,30 @@
                         <span class="menu-title">BKCourse</span>
                     </a>
                 </li>
-                @* <li class="nav-item menu-items">
-                    <a class="nav-link" href="pages/tables/basic-table.html">
+                <li class="nav-item menu-items">
+                    <a class="nav-link" asp-action="Index" asp-controller="Tuitions">
                         <span class="menu-icon">
-                            <i class="mdi mdi-table-large"></i>
+                            <i class="mdi mdi-basecamp"></i>
                         </span>
-                        <span class="menu-title">Tables</span>
+                        <span class="menu-title">Tuition</span>
                     </a>
                 </li>
                 <li class="nav-item menu-items">
-                    <a class="nav-link" href="pages/charts/chartjs.html">
+                    <a class="nav-link" asp-action="Index" asp-controller="TuitionTypes">
                         <span class="menu-icon">
-                            <i class="mdi mdi-chart-bar"></i>
+                            <i class="mdi mdi-bing"></i>
                         </span>
-                        <span class="menu-title">Charts</span>
+                        <span class="menu-title">TuitionType</span>
                     </a>
                 </li>
                 <li class="nav-item menu-items">
-                    <a class="nav-link" href="pages/icons/mdi.html">
+                    <a class="nav-link" asp-action="Index" asp-controller="TuitionCTDT">
                         <span class="menu-icon">
-                            <i class="mdi mdi-contacts"></i>
+                            <i class="mdi mdi-bing"></i>
                         </span>
-                        <span class="menu-title">Icons</span>
+                        <span class="menu-title">TuitionCTDT</span>
                     </a>
-                </li> *@
+                </li>
                 <li class="nav-item menu-items">
                     <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
                         <span class="menu-icon">
@@ -218,6 +246,7 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav navbar-nav-right">
+
                         <li class="nav-item dropdown d-none d-lg-block">
                             <a class="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-bs-toggle="dropdown" aria-expanded="false" href="#">+ Create New Admin</a>
                             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="createbuttonDropdown">
@@ -265,11 +294,11 @@
                             </a>
                         </li>
                         <li class="nav-item dropdown border-left">
-                            <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" style="display:flex;align-items:center;" id="messageDropdown" data-toggle="dropdown">
                                 <i class="mdi mdi-email"></i>
                                 <span class="count bg-success"></span>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+                            <div class="dropdown-menu navbar-dropdown preview-list" aria-labelledby="messageDropdown">
                                 <h6 class="p-3 mb-0">Messages</h6>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item preview-item">
@@ -306,11 +335,11 @@
                             </div>
                         </li>
                         <li class="nav-item dropdown border-left">
-                            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
+                            <a class="nav-link dropdown-toggle" style="display:flex;align-items:center;" id="notificationDropdown" data-toggle="dropdown">
                                 <i class="mdi mdi-bell"></i>
                                 <span class="count bg-danger"></span>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+                            <div class="dropdown-menu navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
                                 <h6 class="p-3 mb-0">Notifications</h6>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item preview-item">
@@ -442,6 +471,7 @@
     <script src="~/js/dashboard.js"></script>
 
 
+   
    
     <!-- Plugin js for this page -->
     <script src="~/vendors/select2/select2.min.js"></script>

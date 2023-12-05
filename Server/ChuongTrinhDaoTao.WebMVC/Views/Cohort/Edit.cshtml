@@ -14,32 +14,32 @@
             <h4 class="card-title">Cohort</h4>
             <div class="form-group">
                 <label asp-for="CohortId" class="control-label"></label>
-                <input type="text" asp-for="CohortId" class="form-control form-control-lg" readonly placeholder="CohortId" aria-label="CohortId">
+                <input style="color: #fff" type="text" asp-for="CohortId" class="form-control form-control-lg" readonly placeholder="CohortId" aria-label="CohortId">
                 <span asp-validation-for="CohortId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CohortName" class="control-label"></label>
-                <input type="text" asp-for="CohortName" class="form-control form-control-lg" placeholder="CohortName" aria-label="CohortName">
+                <input style="color: #fff" type="text" asp-for="CohortName" class="form-control form-control-lg" placeholder="CohortName" aria-label="CohortName">
                 <span asp-validation-for="CohortName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CohortDescription" class="control-label"></label>
-                <input type="text" asp-for="CohortDescription" class="form-control form-control-lg" placeholder="CohortDescription" aria-label="CohortDescription">
+                <input style="color: #fff" type="text" asp-for="CohortDescription" class="form-control form-control-lg" placeholder="CohortDescription" aria-label="CohortDescription">
                 <span asp-validation-for="CohortDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="StartDay" class="control-label"></label>
-                <input type="date" asp-for="StartDay" class="form-control form-control-lg" placeholder="StartDay" aria-label="StartDay">
+                <input style="color: #fff" type="date" asp-for="StartDay" class="form-control form-control-lg" placeholder="StartDay" aria-label="StartDay">
                 <span asp-validation-for="StartDay" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EndDay" class="control-label"></label>
-                <input type="date" asp-for="EndDay" class="form-control form-control-lg" placeholder="EndDay" aria-label="EndDay">
+                <input style="color: #fff" type="date" asp-for="EndDay" class="form-control form-control-lg" placeholder="EndDay" aria-label="EndDay">
                 <span asp-validation-for="EndDay" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label>FacultyID</label>
-                <select name="MajorIds" class="js-example-basic-multiple" multiple="multiple" style="width:100%">
+                <select style="color: #fff" name="MajorIds" class="js-example-basic-multiple" multiple="multiple" style="width:100%">
                     @foreach (var item in ViewBag.Majors)
                     {
                         <option value="@item.MajorId">@item.MajorName</option>

@@ -11,26 +11,26 @@
 <form class="col-md-6 grid-margin stretch-card" method="post">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Faculty</h4>
-            <p class="card-description"> Add classes like <code>.form-control-lg</code> and <code>.form-control-sm</code>. </p>
+            <h4 class="card-title">Major</h4>
+           
             <div class="form-group">
                 <label asp-for="MajorName" class="control-label"></label>
-                <input type="text" asp-for="MajorName" class="form-control form-control-lg" placeholder="MajorName" aria-label="MajorName">
+                <input style="color: #fff" type="text" asp-for="MajorName" class="form-control form-control-lg" placeholder="MajorName" aria-label="MajorName">
                 <span asp-validation-for="MajorName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="MajorDescription" class="control-label"></label>
-                <input type="text" asp-for="MajorDescription" class="form-control form-control-lg" placeholder="MajorDescription" aria-label="MajorDescription">
+                <input style="color: #fff" type="text" asp-for="MajorDescription" class="form-control form-control-lg" placeholder="MajorDescription" aria-label="MajorDescription">
                 <span asp-validation-for="MajorDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="MajorFounding" class="control-label"></label>
-                <input type="date" asp-for="MajorFounding" class="form-control form-control-lg" placeholder="MajorFounding" aria-label="MajorFounding">
+                <input style="color: #fff" type="date" asp-for="MajorFounding" class="form-control form-control-lg" placeholder="MajorFounding" aria-label="MajorFounding">
                 <span asp-validation-for="MajorFounding" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label>FacultyID</label>
-                <select asp-for="FacultyId" class="form-control" style="width:100%">
+                <select style="color: #fff" asp-for="FacultyId" class="form-control" style="width:100%">
                     @foreach(var item in ViewBag.Facultys)
                     {
                         <option value="@item.FacultyId">@item.FacultyName</option>

@@ -29,3 +29,4 @@ D:\HK5\Web\QuanLyChuongTrinhDaoTao\Server\ChuongTrinhDaoTao.WebBlazor\obj\Debug\
 D:\HK5\Web\QuanLyChuongTrinhDaoTao\Server\ChuongTrinhDaoTao.WebBlazor\obj\Debug\net7.0\ChuongTrinhDaoTao.WebBlazor.pdb
 D:\HK5\Web\QuanLyChuongTrinhDaoTao\Server\ChuongTrinhDaoTao.WebBlazor\obj\Debug\net7.0\ChuongTrinhDaoTao.WebBlazor.genruntimeconfig.cache
 D:\HK5\Web\QuanLyChuongTrinhDaoTao\Server\ChuongTrinhDaoTao.WebBlazor\obj\Debug\net7.0\ref\ChuongTrinhDaoTao.WebBlazor.dll
+D:\HK5\Web\QuanLyChuongTrinhDaoTao\Server\ChuongTrinhDaoTao.WebBlazor\obj\Debug\net7.0\ChuongTrinhDaoTao.WebBlazor.sourcelink.json

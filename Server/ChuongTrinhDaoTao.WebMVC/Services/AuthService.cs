@@ -39,7 +39,7 @@ namespace ChuongTrinhDaoTao.WebMVC.Services
             {
                 ApiType = SD.ApiType.POST,
                 Data = registerationRequestDto,
-                Url = SD.ApiBase + "/api/Auth/Re"
+                Url = SD.ApiBase + "/api/Auth/Register"
             }, withBearer: false);
         }
     }

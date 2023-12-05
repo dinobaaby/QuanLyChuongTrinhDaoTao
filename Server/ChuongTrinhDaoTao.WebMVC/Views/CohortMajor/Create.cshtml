@@ -14,7 +14,7 @@
             <h4 class="card-title">Cohort_Major</h4>
             <div class="form-group">
                 <label>MajorId</label>
-                <select asp-for="MajorId" class="form-control" style="width:100%">
+                <select style="color: #fff" asp-for="MajorId" class="form-control" style="width:100%">
                     @foreach (var item in ViewBag.Majors)
                     {
                         <option value="@item.MajorId">@item.MajorName</option>
@@ -25,7 +25,7 @@
           
             <div class="form-group">
                 <label>CohortId</label>
-                <select asp-for="CohortId" class="form-control" style="width:100%">
+                <select style="color: #fff" asp-for="CohortId" class="form-control" style="width:100%">
                     @foreach (var item in ViewBag.Cohorts)
                     {
                         <option value="@item.CohortId">@item.CohortName</option>
